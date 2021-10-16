@@ -13,33 +13,13 @@ const logger = (req, res, next) => {
   console.log("${req.method} ${req.url}");
   next();
 };
-const privateMiddleware = (req, res, next) => {
-  const url = req.url;
-  if (url === "/protected") {
-    return res.send("<h1>Not Allowed<h1>");
-  }
-  console.log("Allowed, you may continue.");
-  next();
-};
 
 const handleHome = (req, res) => {
   return res.send("I love middlewares.");
 };
-const handleProtected = (req, res) => {
-  return res.send("Welcome to the private lounge.");
-};
 // app.use는 global middleware를 만들 수 있게 해준다. 즉, 어느 URL에도 작동하는 middleware!
 // 순서 --> middleware를 use하는 게 먼저오고, 그 다음에 URL의 get이 와야 함!!!!
-// middleware를 app 전체에 어떤 url에서도 사용할 수 있도록 할 수 있고,
-app.use(logger);
-app.use(privateMiddleware);
-
-app.get("/", handleHome);
-app.get("/protected", handleProtected);
-// middleware 하나의 url에만 사용되게 할 수 있다.
-// app.use(logger);
-// app.get("/", logger, handleHome);
-// app.get("/protected", logger, handleProtected);
+app.get("/", logger, handleHome);
 
 // 그 서버가 port 4000을 listening하고 있음.
 const handleListening = () =>
