@@ -6,15 +6,19 @@ const PORT = 4000;
 // express application을 만들 것임.
 const app = express();
 
-// GET Request 완료하기
-// 브라우저가 나의 서버에 무언가를 request(요청)한다.
-// GET / -> 웹사이트를 가져와달라는 rquest.
-const handleHome = () => console.log("Somebody is trying to go home.");
-
+// GET Response해주기
+// request object, response object라는 2개의 argument가 있어야 함.
+const handleHome = (req, res) => {
+  return res.send("I still love you.");
+};
+const handleLogin = (req, res) => {
+  return res.send("Login here.");
+};
 app.get("/", handleHome);
+app.get("/login", handleLogin);
 
 // 그 서버가 port 4000을 listening하고 있음.
 const handleListening = () =>
-  console.log("Server listening on port http://localhost:${PORT} 🚀");
+  console.log("✅ Server listenting on port http://localhost:${PORT} 🚀");
 
 app.listen(PORT, handleListening);
