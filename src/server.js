@@ -5,6 +5,7 @@ import express from "express";
 const PORT = 4000;
 // express application을 만들 것임.
 const app = express();
+
 // 그 서버가 port 4000을 listening하고 있음.
 const handleListening = () =>
   console.log("Server listening on port http://localhost:${PORT} 🚀");

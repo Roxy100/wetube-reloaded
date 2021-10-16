@@ -7,7 +7,7 @@
     "url": "git+https://github.com/Roxy100/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "Roxy100",
   "license": "MIT",
