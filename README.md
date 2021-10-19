@@ -53,23 +53,42 @@ app.get("/", handleHome);
 
 router가 없으면 url을 개별로 길게 길게 늘여서 쓰는 방법으로 코딩을 해야 하는데 그것은 매우 비효율적이다.
 
-/ -> Home
-/join -> Join
-/login -> Login
-/search -> Search
+##### global Router
 
-/users/edit -> Edit User
-/users/delete -> Delete User
+- / -> Home
+- /join -> Join
+- /login -> Login
+- /search -> Search
 
-/videos/watch -> Watch Video
-/videos/edit -> Edit Video
-/videos/delete -> Delete Video
-/videos/comments -> Comment on a video
-/videos/comments/delete -> Delete A comment of a Video
+##### user Router
 
-- import할 때 경로설정 시
+- /users/:id -> See User
+- /users/logout -> Log Out
+- /users/edit -> Edit My Profile
+- /users/delete -> Delete(Remove) My Profile
+
+##### video Router
+
+- /videos/:id -> See Video
+- /videos/:id/edit -> Edit Video
+- /videos/:id/delete -> Delete(Remove) Video
+- /videos/upload -> Upload Video
+
+* import할 때 경로설정 시
   "../" : 지금 있는 폴더에서 벗어나는 걸 의미함.
   "./" : 지금의 장소를 의미함.
-- export default 할 1개의 경우는 'export default 경로';
-- export default 할 여러 개의 경우는 여러개의 해당하는 코드 앞쪽에 export를 넣는다.
-- 그리고 두 개의 다른 파일을 import할 때 object{}를 쓴다.
+* export default 할 1개의 경우는 'export default 경로';
+* export default 할 여러 개의 경우는 여러개의 해당하는 코드 앞쪽에 export를 넣는다.
+* 그리고 두 개의 다른 파일을 import할 때 object{}를 쓴다.
+
+#### Router Parameter
+
+- ":id"
+  -> id = 변수, parameter(숫자 같은 url을 가지는 걸 가능하게 해주는 역할)
+  -> : = 텍스트가 아니라 변수로 만들어주는 역할.
+  express는 request object에 이 parameter를 보내준다.
+  ```
+  videoRouter.get("/upload", upload);
+  videoRouter.get("/:id", see);
+  videoRouter.get("/:id/edit", edit);
+  ```
