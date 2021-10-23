@@ -131,3 +131,8 @@ router가 없으면 url을 개별로 길게 길게 늘여서 쓰는 방법으로
 https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 
 - 꽤 괜찮은 스타이들을 HTML 태그에 입히는 역할을 함.
+
+### Conditionals & Iteration
+
+- Conditional : 조건문 사용해보기
+- Iteration: 기본적으로 elements의 list를 보여주는 것.
