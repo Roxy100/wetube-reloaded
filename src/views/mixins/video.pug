@@ -1,0 +1,9 @@
+//- video mixin 안의 info가 될 것이고 각각 info.~적혀있을 것.
+mixin video(info)
+    div 
+        h4=info.title
+        ul 
+            li #{info.rating}/5.
+            li #{info.comments} comments.
+            li Posting #{info.createdAt}.
+            li #{info.views} views.

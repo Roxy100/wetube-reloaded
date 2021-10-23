@@ -132,7 +132,13 @@ https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 
 - 꽤 괜찮은 스타이들을 HTML 태그에 입히는 역할을 함.
 
-### Conditionals & Iteration
+### Conditionals & Iteration & Mixin
 
 - Conditional : 조건문 사용해보기
-- Iteration: 기본적으로 elements의 list를 보여주는 것.
+- Iteration: list의 모든 element들을 HTML에 보여주는 것.
+  -> array의 모든 element에 대해 특정 행동을 취할 때 사용함.
+- mixin: 다른 데이터를 포함하지만 같은 형태의 HTML을 보여주는 것.
+  - footer.pug는 partial를 사용한 이유와 같지만, 이 부분은 보여주는 용도로 쓰일 뿐이다.
+  - video.pug는 mixin을 사용하여, 보여줄 뿐만 아니라 데이터도 받을 수 있는 기능까지 추가한 이유이다. '+' 사용!
+    -> 데이터를 받을 수 있는 일종의 미리 만들어진 Html block이라 볼 수 있다. Html코드를 재사용하는 기능.
+- partial와 mixin은 template에 include 해줘야한다.
