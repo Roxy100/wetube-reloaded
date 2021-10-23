@@ -125,3 +125,9 @@ router가 없으면 url을 개별로 길게 길게 늘여서 쓰는 방법으로
 
 - base.pug에 content를 위한 공간이 마련되어야 함. ex. block content
   block: 창문 또는 문 이라 생각하자.
+
+### MVP styles (Minimal Viable Product.css)
+
+https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
+
+- 꽤 괜찮은 스타이들을 HTML 태그에 입히는 역할을 함.
