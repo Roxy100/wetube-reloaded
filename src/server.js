@@ -11,8 +11,15 @@ const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev");
-app.use(logger);
 
+// express는 html을 리턴하기 위해 pug를 사용할 거라고 지정함.
+// console.log(process.cwd()); 해서 현재 작업 디렉토리를 확인해보자.
+// 현재 작업 디렉토리는 node.js를 시작하는 디렉토리라는 것!!! 즉, 우리는 /wetube-reloaded
+// "현재 작업 디렉토리" + /views" 설정해준다.
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+
+app.use(logger);
 app.use("/", globalRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

@@ -92,3 +92,36 @@ router가 없으면 url을 개별로 길게 길게 늘여서 쓰는 방법으로
   videoRouter.get("/:id", see);
   videoRouter.get("/:id/edit", edit);
   ```
+
+### Pug
+
+#### pug라는 유저가 보여줄 html로 리턴해주는 파일이다.
+
+- 아래와 같이 설정해줄 것!
+
+  ```
+  app.set("view engine", "pug");
+  app.set("views", process.cwd() + "/src/views")
+  ```
+
+#### pug라는 템플릿에 어느 javascript code라도 넣을 수 있다. ex. footer.pug
+
+#### 그 javascript code를 실행해서 그걸 유저에게 제공해주는 역할을 '렌더링'이라고 부른다.
+
+#### 렌더링할 때 보내는 인수는 2가지인데, render("view의 이름", {템플릿에 보낼 변수} )
+
+- 깔끔한 html을 작성하도록 해주기 때문이다.
+- 우리의 html에 javascript를 포함시켜주기 때문이다.
+
+#### pug의 변수를 적을 때는 #{} 이라고 쓴다.
+
+#### includes(파일포함)
+
+- 반복하지 않아도 되고 partials폴더를 사용하여 한 파일로 모든 템플릿을 업데이트 할 수 있기 때문이다. ex. include partials/footer.pug
+
+#### inheritance(상속) with extends and block
+
+- base.pug 기본 베이스에 따라 home, watch, edit은 extends(확장) 하게 될 것임. ex. extends base.pug
+
+- base.pug에 content를 위한 공간이 마련되어야 함. ex. block content
+  block: 창문 또는 문 이라 생각하자.
