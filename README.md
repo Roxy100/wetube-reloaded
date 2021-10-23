@@ -74,12 +74,14 @@ router가 없으면 url을 개별로 길게 길게 늘여서 쓰는 방법으로
 - /videos/:id/delete -> Delete(Remove) Video
 - /videos/upload -> Upload Video
 
-* import할 때 경로설정 시
+##### more info...
+
+- import할 때 경로설정 시
   "../" : 지금 있는 폴더에서 벗어나는 걸 의미함.
   "./" : 지금의 장소를 의미함.
-* export default 할 1개의 경우는 'export default 경로';
-* export default 할 여러 개의 경우는 여러개의 해당하는 코드 앞쪽에 export를 넣는다.
-* 그리고 두 개의 다른 파일을 import할 때 object{}를 쓴다.
+- export default 할 1개의 경우는 'export default 경로';
+- export default 할 여러 개의 경우는 여러개의 해당하는 코드 앞쪽에 export를 넣는다.
+- 그리고 두 개의 다른 파일을 import할 때 object{}를 쓴다.
 
 #### Router Parameter
 
@@ -130,7 +132,7 @@ router가 없으면 url을 개별로 길게 길게 늘여서 쓰는 방법으로
 
 https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 
-- 꽤 괜찮은 스타이들을 HTML 태그에 입히는 역할을 함.
+- 꽤 괜찮은 스타일들을 HTML 태그에 입히는 역할을 함.
 
 ### Conditionals & Iteration & Mixin
 
