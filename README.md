@@ -144,3 +144,9 @@ https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
   - video.pug는 mixin을 사용하여, 보여줄 뿐만 아니라 데이터도 받을 수 있는 기능까지 추가한 이유이다. '+' 사용!
     -> 데이터를 받을 수 있는 일종의 미리 만들어진 Html block이라 볼 수 있다. Html코드를 재사용하는 기능.
 - partial와 mixin은 template에 include 해줘야한다.
+
+### GET & POST
+
+### MongoDB & Mongoose
+
+CRUD -> Create / Read / Update / Delete
