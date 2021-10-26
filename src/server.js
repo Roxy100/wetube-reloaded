@@ -20,6 +20,9 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 
 app.use(logger);
+// express application이 form의 value들을 이해할 수 있도록 하고, form을 멋진 javascript object 형식으로 바꿔주는 middleware.
+app.use(express.urlencoded({ extended: true }));
+// videoRouter > videoController > postEdit에 있는 req.body와 연결되는 지점.
 app.use("/", globalRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
