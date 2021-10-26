@@ -147,6 +147,63 @@ https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 
 ### GET & POST
 
+- GET : 접근
+- POST : 전송
+- redirect : 다시보내다
+- parameter : 매개변수
+
+* express는 form으로 보낸 데이터를 읽지 못한다.
+* input에 name설정을 해주지 않으면 데이터가 전송되지 않는다!!!
+
 ### MongoDB & Mongoose
 
-CRUD -> Create / Read / Update / Delete
+1. wsl 터미널을 연다.
+2. 'sudo apt update'을 입력하고,
+3. 'sudo apt-get install mongodb'을 입력하고 설치한다.
+4. 'mongod --version'을 입력하고 설치가 되어있는지 확인한다.
+5. 'sudo service mongodb start'을 입력하고 mongo를 사용할 수 있게 서비스 시작!
+6. 'mongo'를 입력하면 mongo shell로 이동한다.
+7. 다 사용했으면 'sudo service mongodb stop'을 입력하고 서비스를 종료!
+   \*\* 'sudo service mongodb status'를 입력하면 지금 서비스가 실행중인지 알 수 있다. ([OK] or not [Fail])
+
+- CRUD -> Create / Read / Update / Delete
+
+### Callback식 vs Promise식
+
+- Callback식으로 하면,
+
+```
+console.log("start")   // 첫번째 순서,
+Video.find({}, (error, videos) => {
+  if(error) {
+    return res.render("server-error")
+  }
+  return res.render("home", { pageTitle: "Home", videos });
+});  // 세번째 순서
+console.log("finished")   // 두번째 순서,
+```
+
+- Promise식으로 하면,
+
+```
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});  // await사용 때문에 이 코드부터 차례대로 실행됨.
+    return res.render("home", { pageTitle: "Home", videos });
+  } catch {
+    return res.render("server-error");
+  }
+};
+```
+
+-> await사용시 해당함수가 async일 때만 가능하다.
+
+#### return & render
+
+1. return의 역할 : 본질적인 return의 역할보다는 function을 마무리짓는 역할로 사용되고 있음.
+
+- 이러한 경우 return이 없어도 정상적으로 동작하지만 실수를 방지하기 위해 return을 사용.
+
+2. render한 것은 다시 render할 수 없다.
+
+- redirect(). sendStatus(). end() 등등 포함 (express에서 오류 발생하기 때문)
