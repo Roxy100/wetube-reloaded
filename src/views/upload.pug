@@ -1,0 +1,7 @@
+extends base.pug
+
+block content 
+    //- /videos/upload url에 post request를 보낼 것.
+    form(method="POST", action="/videos/upload") 
+        input(placeholder="Title", required, type="text", name="title")
+        input(type="submit", value="Upload Video")

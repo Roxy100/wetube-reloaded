@@ -47,4 +47,28 @@ export const postEdit = (req, res) => {
   videos[id - 1].title = title;
   return res.redirect(`/videos/${id}`);
 }; // req.body 는 form에 있는 value의 javascript representation임. (javascript식으로 표현한 것.) ex.edit.pug의 form식.
+// req.body를 나타내주려면 form의 name을 반드시 넣어주어야 한다!!!
 // res.redirect 는 브라우저가 자동으로 이동하도록 하는 기능.
+
+export const getUpload = (req, res) => {
+  return res.render("upload", { pageTitle: "Upload Video" });
+};
+
+// postUpload라는 function이 호출이 될 것임.
+export const postUpload = (req, res) => {
+  // req.body로부터 그 name(title)로 데이터를 받을 수 있을 것임.
+  const { title } = req.body;
+  // newVideo라는 새로운 object를 만들어서
+  const newVideo = {
+    title,
+    rating: 0,
+    comments: 0,
+    createdAt: "just now",
+    views: 0,
+    id: videos.length + 1,
+  };
+  // newVideo를 우리의 가짜 DB에 추가할 것임.
+  videos.push(newVideo);
+  // 브라우저에게 홈으로 돌아가달라고 말함.
+  return res.redirect("/");
+};
