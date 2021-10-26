@@ -1,3 +1,4 @@
+import "./db";
 // "express"라는 package를 express라는 이름으로 import해온 것.
 import express from "express";
 // morgan은 GET, path, status code ... 모든 정보를 가지고 있음.
@@ -28,6 +29,6 @@ app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
 const handleListening = () =>
-  console.log("✅ Server listening on port http://localhost:${PORT} 🚀");
+  console.log("✅ Server listening on http://localhost:${PORT} 🚀");
 
 app.listen(PORT, handleListening);
