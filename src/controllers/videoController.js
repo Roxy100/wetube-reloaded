@@ -32,8 +32,22 @@ export const getUpload = (req, res) => {
 };
 
 // postUpload라는 function이 호출이 될 것임.
-export const postUpload = (req, res) => {
-  // req.body로부터 그 name(title)로 데이터를 받을 수 있을 것임.
-  const { title } = req.body;
-  return res.redirect("/");
+export const postUpload = async (req, res) => {
+  // req.body로부터 그 name(title, description, hashtags)로 데이터를 받을 수 있을 것임.
+  const { title, description, hashtags } = req.body;
+  // 데이터를 검증할 수 있는 js object의 간단한 코드.(js object를 만들고 db에 save하는 저장 코드 대신)
+  try {
+    await Video.create({
+      title,
+      description,
+      createdAt: Date.now(),
+      hashtags: hashtags.split(",").map((word) => `${word}`),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("upload", {
+      pageTitle: "Upload Video",
+      errorMessage: error._message,
+    });
+  }
 };
