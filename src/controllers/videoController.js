@@ -1,11 +1,12 @@
 import Video from "../models/Video";
 
-// Promise 식
+// <Home>
 export const home = async (req, res) => {
   const videos = await Video.find({});
   return res.render("home", { pageTitle: "Home", videos });
 }; // home.pug를 렌더링한다.
 
+// <Watch Video>
 export const watch = async (req, res) => {
   // const id = req.params.id;
   const { id } = req.params;
@@ -16,6 +17,7 @@ export const watch = async (req, res) => {
   return res.render("watch", { pageTitle: video.title, video });
 }; // watch.pug를 렌더링한다.
 
+// <Update Video>
 // 유저가 getEdit로 올 때, 우린 편집용 form을 render해줄 거고,
 export const getEdit = async (req, res) => {
   const { id } = req.params;
@@ -45,6 +47,7 @@ export const postEdit = async (req, res) => {
 // req.body를 나타내주려면 form의 name을 반드시 넣어주어야 한다!!!
 // res.redirect 는 브라우저가 자동으로 이동하도록 하는 기능.
 
+// <Upload Video>
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "Upload Video" });
 };
@@ -68,4 +71,11 @@ export const postUpload = async (req, res) => {
       errorMessage: error._message,
     });
   }
+};
+
+// <Delete Video>
+export const deleteVideo = async (req, res) => {
+  const { id } = req.params;
+  await Video.findByIdAndDelete(id);
+  return res.redirect("/");
 };

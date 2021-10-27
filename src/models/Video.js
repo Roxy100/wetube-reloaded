@@ -12,6 +12,7 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
+// static function 이용한 hashtag 깔끔하게 정리하기
 videoSchema.static("formatHashtags", function (hashtags) {
   return hashtags
     .split(",")
