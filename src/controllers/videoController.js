@@ -6,10 +6,11 @@ export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home", videos });
 }; // home.pug를 렌더링한다.
 
-export const watch = (req, res) => {
+export const watch = async (req, res) => {
   // const id = req.params.id;
   const { id } = req.params;
-  return res.render("watch", { pageTitle: `Watching` });
+  const video = await Video.findById(id);
+  return res.render("watch", { pageTitle: video.title, video });
 }; // watch.pug를 렌더링한다.
 
 // 유저가 getEdit로 올 때, 우린 편집용 form을 render해줄 거고,

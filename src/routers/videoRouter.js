@@ -9,8 +9,9 @@ import {
 
 const videoRouter = express.Router();
 
-videoRouter.get("/:id(\\d+)", watch);
-videoRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit);
+// 24자리 hexadecimal 값의 regular expression 적용
+videoRouter.get("/:id([0-9a-f]{24})", watch);
+videoRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit);
 videoRouter.route("/upload").get(getUpload).post(postUpload);
 
 export default videoRouter;
