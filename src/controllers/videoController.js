@@ -2,7 +2,7 @@ import Video from "../models/Video";
 
 // <Home>
 export const home = async (req, res) => {
-  const videos = await Video.find({});
+  const videos = await Video.find({}).sort({ createdAt: "desc" });
   return res.render("home", { pageTitle: "Home", videos });
 }; // home.pug를 렌더링한다.
 
@@ -78,4 +78,21 @@ export const deleteVideo = async (req, res) => {
   const { id } = req.params;
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
+};
+
+// <Search>
+export const search = async (req, res) => {
+  const { keyword } = req.query;
+  // 포괄적으로 다 포함하는 let videos array가 필요한 것.
+  // keyword가 있던 없던 videos는 empty array이다.
+  // keyword가 있다면 videos array는 업데이트 될 것.
+  let videos = [];
+  if (keyword) {
+    videos = await Video.find({
+      title: {
+        $regex: new RegExp(`${keyword}$`, "i"), // i는 대문자와 소문자를 구분하지 않는다는 뜻.
+      },
+    });
+  }
+  return res.render("search", { pageTitle: "Search", videos });
 };

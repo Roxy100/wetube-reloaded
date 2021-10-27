@@ -147,8 +147,8 @@ https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 
 ### GET & POST
 
-- GET : 접근
-- POST : 전송
+- GET : 가져온다!
+- POST : 수행한다!
 - redirect : 다시보내다
 - parameter : 매개변수
 
@@ -207,3 +207,32 @@ export const home = async (req, res) => {
 2. render한 것은 다시 render할 수 없다.
 
 - redirect(). sendStatus(). end() 등등 포함 (express에서 오류 발생하기 때문)
+
+### More...
+
+- Model.findByIdAndUpdate()로 불러오기와 수정을 한방에~
+- Model.exists(id를 적용하는 코드) --- ex.Video.exists({\_id: id})
+- 생성이나 업데이트 전 작동해야 할 function의 필요성 => Mongoose의 Middleware를 활용한다.
+
+- Model.findOneAndDelete() >> Model.findOneAndRemove() delete를 사용할 것!
+- 위 표현을 줄인 것이 : Model.findByIdAndDelete()
+
+- 정규식 표현 regular expression
+
+  - 연습사이트 : https://regex101.com/
+  - MDN 공식 문서 : https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Regular_Expressions
+  - 정규표현식 주요사용 : https://www.regexpal.com
+  - 몽고db regex : https://docs.mongodb.com/manual/reference/operator/query/regex
+  - RegExp Mdn : https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+
+  - 예시 코드
+
+  ```
+  $regex: new RegExp(`keyword`, "i")  -> keyword 단어포함.
+  $regex: new RegExp(`^${keyword}`, "i")  -> keyword로 시작하는 것만.
+  $regex: new RegExp(`${keyword}$`, "i")  -> keyword로 끝나는 것만.
+  ```
+
+- req.params : video link를 클릭하면 url에 id를 받을 수 있다.
+- req.body : form을 보내면 그 내용을 req.body로 받을 수 있다.
+- req.query : search 화면에서 keyword를 받을 수 있다. 즉, URL에 있는 모든 정보들을 확인할 수 있다.
