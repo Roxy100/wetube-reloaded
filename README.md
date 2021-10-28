@@ -161,10 +161,44 @@ https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 2. 'sudo apt update'을 입력하고,
 3. 'sudo apt-get install mongodb'을 입력하고 설치한다.
 4. 'mongod --version'을 입력하고 설치가 되어있는지 확인한다.
-5. 'sudo service mongodb start'을 입력하고 mongo를 사용할 수 있게 서비스 시작!
-6. 'mongo'를 입력하면 mongo shell로 이동한다.
-7. 다 사용했으면 'sudo service mongodb stop'을 입력하고 서비스를 종료!
-   \*\* 'sudo service mongodb status'를 입력하면 지금 서비스가 실행중인지 알 수 있다. ([OK] or not [Fail])
+5. 반드시 몽고를 사용할 수 있게 서비스 시작!
+   > sudo service mongodb start
+6. 몽고 사용하기
+
+   > mongo
+
+7. 내가 가진 db 보기
+
+   > show dbs
+
+8. 현재 사용 중인 db 확인
+
+   > db
+
+9. 사용할 db 선택하기
+
+   > use dbName
+   > (현재 수업에서는 `use wetube`)
+
+10. db 컬렉션 보기
+
+    > show collections
+
+11. db 컬렉션 안에 documents 보기
+
+    > db.collectionName.find()
+    > (현재 수업에서는 `db.videos.find()`)
+
+12. db 컬렉션 안에 documents 모두 제거하기
+    > db.collectionName.remove({})
+    > (현재 수업에서는 `db.videos.find({})`)
+13. 다 사용했으면 서비스를 종료!
+
+    > sudo service mongodb stop
+
+14. 지금 서비스가 실행중인지 알 수 있다.
+    > sudo service mongodb status
+    - ([OK] or not [Fail])
 
 - CRUD -> Create / Read / Update / Delete
 
