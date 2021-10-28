@@ -2,6 +2,7 @@ import User from "../models/User";
 // because password compare
 import bcrypt from "bcrypt";
 
+// <Join>
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
   const { name, username, email, password, password2, location } = req.body;
@@ -35,6 +36,8 @@ export const postJoin = async (req, res) => {
     });
   }
 };
+
+// <Login>
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
 
@@ -57,6 +60,10 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password",
     });
   }
+  // user가 로그인하면 그 유저에 대한 정보를 세션에 담는다.
+  req.session.loggedIn = true;
+  // DB에서 찾은 user 정보를 추가해서 세션에 저장한다.
+  req.session.user = user;
   return res.redirect("/");
 };
 

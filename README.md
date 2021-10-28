@@ -282,10 +282,23 @@ https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C
 
 ### 세션과 쿠키 Sessions and Cookies
 
-- Session 세션 : 서버측에서 제공해주는 데이터.
-- Cookie 쿠키 : 클라이언트측에서 저장하고 사용하는 데이터.
+- Session ID 세션 ID:
+  1. 쿠키에 저장된다.
+  2. 서버에도 저장된다.
+  3. 로그인한 유저들의 모든 세션 ID를 DB에 저장해야 한다.
+  4. 즉, 요청이 들어올 때마다, 서버는 쿠키를 받아서, 세션ID를 보고 세션 ID와 일치하는 유저를 찾아야 하고, 쿠키안의 세션ID와 유저가 일치하게 된다.
+- Cookie 쿠키 :
+  1. 정보를 주고 받는 방법!
+  2. 서버가 브라우저에 데이터를 주는 정보. 세션 id를 넣을 곳.
+  3. 세션 ID를 전송하는데 사용되는 매게체!
 
 * 세션과 세션id는 브라우저를 기억하는 방식 중 하나이다.
+* 쿠키를 사용해서 어떤 브라우저를 위한 세션 ID인지 알 수 있다.
+* 브라우저마다 req.session이 달라서 몇몇 정보를 req.session object에 덧붙인 것이다.
+  ```
+  req.session.loggedIn = true;
+  req.session.user = user;
+  ```
 
 #### 중요
 

@@ -2,12 +2,13 @@
 import express from "express";
 // morgan은 GET, path, status code ... 모든 정보를 가지고 있음.
 import morgan from "morgan";
-// session은 세션 등을 말하는 것.
+// session이라는 middleware가 브라우저에 cookie를 전송함.
 import session from "express-session";
 // 따로 독립되어있는 export한 라우터들을 모아 import한 것들.
 import rootRouter from "./routers/rootRouter";
-import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
+import userRouter from "./routers/userRouter";
+import { localsMiddleware } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -34,20 +35,7 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  req.sessionStore.all((error, sessions) => {
-    console.log(sessions);
-    next();
-  });
-});
-
-// 이 URL을 /add-one이라고 한다면,
-app.get("/add-one", (req, res, next) => {
-  // 어떤 정보를 Javascript object에 넣어보자. 세션 object안에 potato를 만들어보았다.
-  req.session.potato += 1;
-  return res.send(`${req.session.id}\n${req.session.potato}`);
-});
-
+app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
