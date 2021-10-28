@@ -191,7 +191,7 @@ https://andybrewer.github.io/mvp/ 사용해서 base.pug에 넣는다.
 
 12. db 컬렉션 안에 documents 모두 제거하기
     > db.collectionName.remove({})
-    > (현재 수업에서는 `db.videos.find({})`)
+    > (현재 수업에서는 `db.videos.remove({})`)
 13. 다 사용했으면 서비스를 종료!
 
     > sudo service mongodb stop
