@@ -3,7 +3,7 @@ import express from "express";
 // morgan은 GET, path, status code ... 모든 정보를 가지고 있음.
 import morgan from "morgan";
 // 따로 독립되어있는 export한 라우터들을 모아 import한 것들.
-import globalRouter from "./routers/globalRouter";
+import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 
@@ -21,7 +21,7 @@ app.use(logger);
 // express application이 form의 value들을 이해할 수 있도록 하고, form을 멋진 javascript object 형식으로 바꿔주는 middleware.
 app.use(express.urlencoded({ extended: true }));
 // videoRouter > videoController > postEdit에 있는 req.body와 연결되는 지점.
-app.use("/", globalRouter);
+app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
