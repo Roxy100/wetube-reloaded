@@ -355,7 +355,7 @@ https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C
 #### 소셜 로그인 만드는 법 (Github)
 
 1. https://github.com/settings/applications/new 여기로 가서 설정을 해준다.
-2. User를 깃헙으로 보낸다. --> https://github.com/login/oauth/authorize?client_id=입력값
+2. Github에 User를 보낸다. --> https://github.com/login/oauth/authorize?client_id=입력값
 3. URL에 있는 것들을 바꿈으로써 다양한 방법으로 User를 승인할 수 있다. --> https://github.com/login/oauth/authorize?client_id=입력값&allow_signup=false&scope
 
 - scope : 유저에게서 얼마나 많이 정보를 읽어내고 어떤 정보를 가져올 것에 대한 것.
