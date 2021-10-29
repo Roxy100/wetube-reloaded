@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 // session이라는 middleware가 브라우저에 cookie를 전송함.
 import session from "express-session";
+// MongoStore 는 세션을 몽고DB에 저장함.
+import MongoStore from "connect-mongo";
 // 따로 독립되어있는 export한 라우터들을 모아 import한 것들.
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
@@ -32,6 +34,10 @@ app.use(
     secret: "Hello!",
     resave: true,
     saveUninitialized: true,
+    // 세션을 db에 저장하게끔 만드는 MongoStore 설정
+    store: MongoStore.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/wetube-reloaded",
+    }),
   })
 );
 
