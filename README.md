@@ -332,3 +332,22 @@ https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C
 
 - resave: false
 - saveUninitialized: false
+
+#### 쿠키의 프로퍼티 & 환경변수 설정
+
+- secret : cookie에 sign할 때 사용하는 string.
+  - sign하는 이유: 서버가 cookie를 줬다는 걸 보여주기 위함. 인증표시.
+- Domain : cookie를 만든 서버가 누구인가?? 브라우저는 domain에 따라 서버를 전송한다.
+- Path : URL
+- Expires : 만료날짜를 지정하지 않으면 'session' cookie로 설정됨.
+  - 사용자가 프로그램을 닫으면 session cookie는 사라지거나, 컴터 재시작하면 session이 사라지게 됨.
+- Max-age : session이 언제 만료되는지 알려주는 것.
+  ```
+  cookie: {
+    maxAge: 20000,
+  },
+  ```
+- .env 파일에는 코드에 들어가면 안되는 값들을 추가할 것. (단, 모든 건 대문자로 적어야 할 것!) ex. 모든 API key or 모든 비밀로 해야하는 URL.
+  1. env 파일 만들기
+  2. env 파일을 .gitignore에 추가하기
+  3. 비밀로 해야하는 string을 process.env.(환경변수)로 바꾸기

@@ -31,12 +31,12 @@ app.use(express.urlencoded({ extended: true }));
 // express가 세션을 메모리에 저장하고 있다. 그러나, 서버 재시작되면, 세션을 잊어버리게 된다.
 app.use(
   session({
-    secret: "Hello!",
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
     // 세션을 db에 저장하게끔 만드는 MongoStore 설정
     store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/wetube-reloaded",
+      mongoUrl: process.env.DB_URL,
     }),
   })
 );
