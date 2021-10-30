@@ -6,6 +6,31 @@
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.siteName = "Wetube";
-  res.locals.loggedInUser = req.session.user;
+  res.locals.loggedInUser = req.session.user || {};
+  // loggedInUser에 접근하려는데 로그인 되어 있지 않으면 생기는 에러라서.
+  // loggedInUser가 undefined라는 콘솔 결과가 나옴.
+  // 그래서 뒤에 or(||) 와 빈 object({})를 추가해준다.
   next();
+};
+
+// <로그인 돼 있는 사람들만 접근 할 수 있게 하는 middleware.>
+// User가 loggledIn 돼 있다면, 요청을 계속하게 하고
+// loggedIn 돼 있지 않은 걸 확인하면, /login 페이지로 redirect 해준다.
+export const protectorMiddleware = (req, res, next) => {
+  if (req.session.loggedIn) {
+    return next();
+  } else {
+    return res.redirect("/login");
+  }
+};
+
+// <로그인 돼 있지 않은 사람들만 접근 할 수 있게 하는 middleware.>
+// User가 loggedIn 돼 있지 않다면, 요청을 계속하게 하고
+// loggedIn 돼 있다면, 홈"/" 으로 redirect 해준다.
+export const publicOnlyMiddleware = (req, res, next) => {
+  if (!req.session.loggedIn) {
+    return next();
+  } else {
+    return res.redirect("/");
+  }
 };
