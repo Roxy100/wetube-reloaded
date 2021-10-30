@@ -42,6 +42,10 @@ app.use(
 );
 
 app.use(localsMiddleware);
+// 폴더 전체를 브라우저에게 노출시킨다는 static files serving을 활성화 해준다.
+// Express에게 만약 누군가 "/uploads"로 가려고 한다면, uploads폴더의 내용을 볼 수 있게 해줘야 하기 때문에.
+// "uploads" 폴더는 multer가 파일을 저장하는 곳.
+app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
