@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   location: String,
 });
 
+// 비밀번호를 보내고 저장하면,
+// 비밀번호를 hash해 준다.
 userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 5);
 });
