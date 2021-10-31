@@ -1,4 +1,5 @@
 import Video from "../models/Video";
+import User from "../models/User";
 
 // <Home>
 export const home = async (req, res) => {
@@ -11,10 +12,11 @@ export const watch = async (req, res) => {
   // const id = req.params.id;
   const { id } = req.params;
   const video = await Video.findById(id);
+  const owner = await User.findById(video.owner);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("watch", { pageTitle: video.title, video, owner });
 }; // watch.pug를 렌더링한다.
 
 // <Update Video>
@@ -54,6 +56,10 @@ export const getUpload = (req, res) => {
 
 // postUpload라는 function이 호출이 될 것임.
 export const postUpload = async (req, res) => {
+  // 영상을 업로드 할 때 업로드하는 사용자의 'id'를 전송해야하기 때문에.
+  const {
+    user: { _id },
+  } = req.session;
   // 'multer'는 'req.file'을 제공해주는데, 'path'를 'req.file.path에서 받은 뒤, 그 이름을 'fileUrl'로 지정한다.
   const { path: fileUrl } = req.file;
   // req.body로부터 그 name(title, description, hashtags)로 데이터를 받을 수 있을 것임.
@@ -64,6 +70,7 @@ export const postUpload = async (req, res) => {
       title,
       description,
       fileUrl,
+      owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect("/");

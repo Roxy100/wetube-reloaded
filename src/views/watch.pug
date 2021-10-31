@@ -5,7 +5,11 @@ block content
     video(src="/" + video.fileUrl, controls)
     div 
         p=video.description
-        small=video.createdAt 
-    a(href=`${video.id}/edit`) Edit Video &rarr;
-    br
-    a(href=`${video.id}/delete`) Delete Video &rarr;
+        small=video.createdAt
+    div
+        small Uploaded by #{owner.name}
+    //- video.owner의 'id'는 'ObjectId'인데, loggedInuser._id는 'string'형태의 데이터라서, 둘다 String()로 만들어준다.
+    if String(video.owner) === String(loggedInUser._id)
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;
