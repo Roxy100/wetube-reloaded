@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/Video";
 // node-fetch: fetch엔 서버에는 없고 브라우저에만 존재하니깐 만든 것.
 import fetch from "node-fetch";
 // because password compare
@@ -242,14 +243,18 @@ export const postChangePassword = async (req, res) => {
   return res.redirect("/users/logout");
 };
 
+// <Video Owner>
 export const see = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   if (!user) {
     return res.status(400).render("404", { pageTitle: "User not found." });
   }
+  // profile의 videos가 특정 User의 id와 owner id가 같은 videos만 가져온다는 것.
+  const videos = await Video.find({ owner: user._id });
   return res.render("users/profile", {
     pageTitle: user.name,
     user,
+    videos,
   });
 };

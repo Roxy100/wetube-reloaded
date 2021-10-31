@@ -11,12 +11,13 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   // const id = req.params.id;
   const { id } = req.params;
-  const video = await Video.findById(id);
-  const owner = await User.findById(video.owner);
+  // populate("owner")하기 않으면, 그냥 owner의 string값만 볼 수 있지만,
+  // populate("owner")하면, owner의 모든 정보들(object)을 다 볼 수 있게 된다.
+  const video = await Video.findById(id).populate("owner");
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video, owner });
+  return res.render("watch", { pageTitle: video.title, video });
 }; // watch.pug를 렌더링한다.
 
 // <Update Video>

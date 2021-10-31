@@ -1,4 +1,9 @@
 extends ../base.pug
+include ../mixins/video
 
-block content 
-    h1 hello
+block content
+    //- profile의 videos가 특정 User의 id와 owner id가 같은 videos만 가져온다는 것.
+    each video in videos
+        +video(video)
+    else
+        li Sorry nothing found.
