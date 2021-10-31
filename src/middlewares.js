@@ -37,5 +37,16 @@ export const publicOnlyMiddleware = (req, res, next) => {
   }
 };
 
-// User가 보낸 파일을 uploads 폴더에 저장하도록 설정된 middleware.
-export const uploadFiles = multer({ dest: "uploads/" });
+// User가 보낸 파일을 uploads/avatars 폴더에 저장하도록 설정된 middleware.
+export const avatarUpload = multer({
+  dest: "uploads/avatars/",
+  limits: {
+    fileSize: 3000000,
+  },
+});
+
+// User가 보낸 파일을 uploads/video 폴더에 저장하도록 설정된 middleware.
+export const videoUpload = multer({
+  dest: "uploads/videos/",
+  limits: { fileSize: 10000000 },
+});

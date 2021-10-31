@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 // 데이터가 어떤 형태로 구성되는 형식을 정의함.
 const videoSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true, maxLength: 40 },
+  fileUrl: { type: String, required: true },
   description: { type: String, required: true, trim: true, minLength: 20 },
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String, trim: true }],

@@ -54,6 +54,8 @@ export const getUpload = (req, res) => {
 
 // postUpload라는 function이 호출이 될 것임.
 export const postUpload = async (req, res) => {
+  // 'multer'는 'req.file'을 제공해주는데, 'path'를 'req.file.path에서 받은 뒤, 그 이름을 'fileUrl'로 지정한다.
+  const { path: fileUrl } = req.file;
   // req.body로부터 그 name(title, description, hashtags)로 데이터를 받을 수 있을 것임.
   const { title, description, hashtags } = req.body;
   // 데이터를 검증할 수 있는 js object의 간단한 코드.(js object를 만들고 db에 save하는 저장 코드 대신)
@@ -61,7 +63,7 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      createdAt: Date.now(),
+      fileUrl,
       hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect("/");

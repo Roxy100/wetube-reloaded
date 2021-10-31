@@ -1,6 +1,8 @@
 extends base.pug
 
 block content 
+    //- /uploads/videos/파일이름 으로 나올 것이다.
+    video(src="/" + video.fileUrl, controls)
     div 
         p=video.description
         small=video.createdAt 
