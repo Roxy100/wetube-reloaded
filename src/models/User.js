@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   name: { type: String, required: true },
   location: String,
+  // video는 하나의 owner를 가지고 owner는 여러 videos를 가질 수 있기 때문에,
+  // video는 하나의 User를 가지지만, User는 여러 videos를 가질 수 있다.
+  // 'videos'는 Video model에 연결된 ObjectId로 구성된 array.
+  videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
 });
 
 // 비밀번호를 보내고 저장하면,

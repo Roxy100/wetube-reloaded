@@ -67,13 +67,18 @@ export const postUpload = async (req, res) => {
   const { title, description, hashtags } = req.body;
   // 데이터를 검증할 수 있는 js object의 간단한 코드.(js object를 만들고 db에 save하는 저장 코드 대신)
   try {
-    await Video.create({
+    // newVideo의 id를 User의 'videos array'에 추가해 줄 것이기 때문에,
+    // 새로 업로드 될 영상의 _id를 'User model'에도 저장해줘야 한다.
+    const newVideo = await Video.create({
       title,
       description,
       fileUrl,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
+    const user = await User.findById(_id);
+    user.videos.push(newVideo._id); // 'array'에 요소를 추가할 때는 push를 사용할 것!
+    user.save();
     return res.redirect("/");
   } catch (error) {
     return res.status(400).render("upload", {

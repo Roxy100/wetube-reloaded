@@ -246,15 +246,14 @@ export const postChangePassword = async (req, res) => {
 // <Video Owner>
 export const see = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
+  // populate("videos")를 하지 않으면, videos의 id의 string값만 볼 수 있지만,
+  // populate("videos")를 하면, videos의 모든 정보들(object)를 다 볼 수 있게 된다.
+  const user = await User.findById(id).populate("videos");
   if (!user) {
     return res.status(400).render("404", { pageTitle: "User not found." });
   }
-  // profile의 videos가 특정 User의 id와 owner id가 같은 videos만 가져온다는 것.
-  const videos = await Video.find({ owner: user._id });
   return res.render("users/profile", {
     pageTitle: user.name,
     user,
-    videos,
   });
 };
