@@ -432,7 +432,7 @@ https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C
 - dirname: directory name 파일까지의 경로 전체
 - resolve: 경로추가
 - mode: 기본설정이 production mode로 설정되기 때문에 '개발모드 중'으로 설정하기 위해서, development 추가할 것!
-- watch: true 하게 되면, css가 변경될 때마다 콘솔창에서 자동적으로 재시작해주는 역할!
+- watch: true 하게 되면, Client 파일 확인을 위해, 둘째는 Backend 파일 확인을 하기 위해서, 이 둘 모두 동시에 실행되어야만 한다.
 - clean: true 하게 되면, output folder를 build를 시작하기 전에 clean 해주는 것!
 
 > 아래 코드들 중요~ 설정해야 하는 구조 파악하기!
@@ -462,7 +462,7 @@ module.exports = {
 
 - client/js/main.js : (webpack하기 전) 최신의 세련된 코드를 짜는 공간.
 - assets/js/main.js : (webpack 한 후) 변환해주는 코드들.
-- base.pug는 assets 폴더에서부터 파일들을 불러올 것임.
+- base.pug는 assets 폴더에서부터 파일들을 불러올 것임. 주소경로는 /static/ URL 이 될 것임.
 
 ---
 
