@@ -406,3 +406,56 @@ https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C
 ---
 
 ---
+
+---
+
+### Webpack
+
+- 앞서 만든 JS코드들은 Babel Node.js에서 변환시켜주는 것들이자 Backend Part이지만,
+- Webpack 에서는 이제부터 브라우저에서 작성할 수 있게 변화시켜주는 것이자 Frontend Part이다.
+
+#### devDependencies 로 설치
+
+> npm i webpack webpack-cli -D
+
+#### Webpack --- script 설정
+
+> "assets": "webpack --config webpack.config.js"
+
+#### 필수 설정
+
+- entry: 소스코드이자, 우리가 처리하고자 하는 파일들(예쁜 js)
+- entry: 이 프로퍼티에 우리가 처리하고자 하는 파일의 경로 입력
+- output: 작업이 끝난 결과물
+- filename: 이 프로퍼티에 우리 결과물이 될 파일 이름 입력
+- path: 이 프로퍼티에 우리 결과물 파일을 어디에 저장할 지 지정 (이 경로는 절대경로여야 해!)
+- dirname: directory name 파일까지의 경로 전체
+- resolve: 경로추가
+- mode: 기본설정이 production mode로 설정되기 때문에 '개발모드 중'으로 설정하기 위해서, development 추가할 것!
+
+> 아래 코드들 중요~ 설정해야 하는 구조 파악하기!
+
+```
+const path = require("path");
+module.exports = {
+  entry: "./src/client/js/main.js",
+  mode: "development",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "assets", "js"),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: { },
+        },
+      },
+    ],
+  },
+};
+```
+
+- client/js/main.js : (webpack하기 전) 최신의 세련된 코드를 짜는 공간.
+- assets/js/main.js : (webpack 한 후) 변환해주는 코드들.
+- base.pug는 assets 폴더에서부터 파일들을 불러올 것임.

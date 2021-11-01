@@ -46,6 +46,9 @@ app.use(localsMiddleware);
 // Express에게 만약 누군가 "/uploads"로 가려고 한다면, uploads폴더의 내용을 볼 수 있게 해줘야 하기 때문에.
 // "uploads" 폴더는 multer가 파일을 저장하는 곳.
 app.use("/uploads", express.static("uploads"));
+// express에게 /assets 폴더를 User들한테 열람할 수 있게 설정함.
+// 서버한테 assets 폴더의 내용물을 /static 주소를 통해 공개하라고 하는 것.
+app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
