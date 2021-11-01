@@ -3,7 +3,9 @@ import User from "../models/User";
 
 // <Home>
 export const home = async (req, res) => {
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   return res.render("home", { pageTitle: "Home", videos });
 }; // home.pug를 렌더링한다.
 
@@ -135,7 +137,7 @@ export const search = async (req, res) => {
       title: {
         $regex: new RegExp(`${keyword}$`, "i"), // i는 대문자와 소문자를 구분하지 않는다는 뜻.
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 };

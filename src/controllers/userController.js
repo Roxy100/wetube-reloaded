@@ -1,5 +1,4 @@
 import User from "../models/User";
-import Video from "../models/Video";
 // node-fetch: fetch엔 서버에는 없고 브라우저에만 존재하니깐 만든 것.
 import fetch from "node-fetch";
 // because password compare
@@ -248,7 +247,13 @@ export const see = async (req, res) => {
   const { id } = req.params;
   // populate("videos")를 하지 않으면, videos의 id의 string값만 볼 수 있지만,
   // populate("videos")를 하면, videos의 모든 정보들(object)를 다 볼 수 있게 된다.
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: {
+      path: "owner",
+      model: "User",
+    },
+  });
   if (!user) {
     return res.status(400).render("404", { pageTitle: "User not found." });
   }

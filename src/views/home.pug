@@ -2,10 +2,11 @@ extends base.pug
 include mixins/video
 
 block content 
-    //- videos 안의 각각의 potato에 대해서, video라는 mixin을 호출해서 potato라는 정보 객체를 보내고 있는 것.
-    //- potato 객체란? videos 라는 array안의 한 item이다.
-    each potato in videos 
-        +video(potato)
-    else 
-        li Sorry nothing found.
+    //- videos 안의 각각의 potato에 대해서, video라는 mixin을 호출해서 video라는 정보 객체를 보내고 있는 것.
+    //- video 객체란? videos 라는 array안의 한 item이다.
+    div.video-grid
+        each video in videos
+            +video(video)
+        else
+            span.empty__message No videos found
     
