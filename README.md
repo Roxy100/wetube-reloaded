@@ -460,6 +460,8 @@ module.exports = {
 - assets/js/main.js : (webpack 한 후) 변환해주는 코드들.
 - base.pug는 assets 폴더에서부터 파일들을 불러올 것임.
 
+---
+
 #### SCSS Loader
 
 > npm i sass-loader sass webpack --save-dev
@@ -475,3 +477,11 @@ module.exports = {
 
 - Webpack이 적혀져있는 역순으로 실행됨.
   sass-loader > css-loader > style-loader 순으로
+  - sass-loader : scss를 일반적인 css로 바꿔줌.
+  - style-loader : css code를 브라우저에 적용하는 역할.
+
+#### MiniCssExtractPlugin
+
+style-loader를 이용하는 대신에, 이 Plugin을 사용하여, css 파일을 분리하고 싶기 때문에
+
+> npm i --save-dev mini-css-extract-plugin
