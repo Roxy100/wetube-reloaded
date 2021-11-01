@@ -459,3 +459,19 @@ module.exports = {
 - client/js/main.js : (webpack하기 전) 최신의 세련된 코드를 짜는 공간.
 - assets/js/main.js : (webpack 한 후) 변환해주는 코드들.
 - base.pug는 assets 폴더에서부터 파일들을 불러올 것임.
+
+#### SCSS Loader
+
+> npm i sass-loader sass webpack --save-dev
+> npm i --save-dev css-loader
+> npm i --save-dev style-loader
+
+```
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+```
+
+- Webpack이 적혀져있는 역순으로 실행됨.
+  sass-loader > css-loader > style-loader 순으로

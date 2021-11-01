@@ -1,2 +1,4 @@
-// 최신의 세련된 코드를 짜는 공간. (webpack하기 전)
-alert("hi!");
+// Webpack하기 전 최신의 코드들
+// styles.scss 연결
+import "../scss/styles.scss";
+console.log("hi");
