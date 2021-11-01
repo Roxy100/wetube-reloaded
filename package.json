@@ -7,8 +7,8 @@
     "url": "git+https://github.com/Roxy100/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
-    "assets": "webpack --config webpack.config.js"
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "author": "Roxy100",
   "license": "MIT",

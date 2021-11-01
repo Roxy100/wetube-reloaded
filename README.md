@@ -432,6 +432,8 @@ https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C
 - dirname: directory name 파일까지의 경로 전체
 - resolve: 경로추가
 - mode: 기본설정이 production mode로 설정되기 때문에 '개발모드 중'으로 설정하기 위해서, development 추가할 것!
+- watch: true 하게 되면, css가 변경될 때마다 콘솔창에서 자동적으로 재시작해주는 역할!
+- clean: true 하게 되면, output folder를 build를 시작하기 전에 clean 해주는 것!
 
 > 아래 코드들 중요~ 설정해야 하는 구조 파악하기!
 
@@ -440,9 +442,11 @@ const path = require("path");
 module.exports = {
   entry: "./src/client/js/main.js",
   mode: "development",
+  watch: true,
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "assets", "js"),
+    clean: true,
   },
   module: {
     rules: [
