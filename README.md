@@ -489,3 +489,8 @@ module.exports = {
 style-loader를 이용하는 대신에, 이 Plugin을 사용하여, css 파일을 분리하고 싶기 때문에
 
 > npm i --save-dev mini-css-extract-plugin
+
+### Styles
+
+- font-awesome 설정 : https://cdnjs.com/libraries/font-awesome
+- Reset 설정 : https://meyerweb.com/eric/tools/css/reset/
