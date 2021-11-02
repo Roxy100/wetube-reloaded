@@ -1,11 +1,14 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
+const playBtnIcon = playBtn.querySelector("i");
 const muteBtn = document.getElementById("mute");
+const muteBtnIcon = muteBtn.querySelector("i");
 const volumeRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
+const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
@@ -26,7 +29,7 @@ const handlePlayClick = (e) => {
   } else {
     video.pause();
   }
-  playBtn.innerText = video.paused ? "Play" : "Pause";
+  playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 };
 
 // <Mute, Unnute>
@@ -36,7 +39,9 @@ const handleMute = (e) => {
   } else {
     video.muted = true; // 음소거 상태중~
   }
-  muteBtn.innerText = video.muted ? "Unmute" : "Mute";
+  muteBtnIcon.classList = video.muted
+    ? "fas fa-volume-mute"
+    : "fas fa-volume-up";
   volumeRange.value = video.muted ? 0 : globalVolumeValue;
 };
 
@@ -50,8 +55,8 @@ const handleVolumeChange = (event) => {
   // 음소거를 해제한다면, 그 전의 볼륨 상태로 돌아가게끔 해주고 싶을 때,
   //  globalVolumeValue이라는 global variable을 업데이트 해줄 것.
   globalVolumeValue === "0"
-    ? ((video.muted = true), (muteBtn.innerText = "Unmute"))
-    : ((video.muted = false), (muteBtn.innerText = "Mute"));
+    ? ((video.muted = true), (muteBtnIcon.classList = "fas fa-volume-mute"))
+    : ((video.muted = false), (muteBtnIcon.classList = "fas fa-volume-up"));
   // 비디오의 볼륨을 바뀌게 하는 것.
   // video.volume 속성은 number!
   video.volume = value;
@@ -59,7 +64,7 @@ const handleVolumeChange = (event) => {
 
 // <Time Formatting>
 const formatTime = (seconds) =>
-  new Date(seconds * 1000).toISOString().substr(11, 8);
+  new Date(seconds * 1000).toISOString().substr(14, 5);
 
 // <Duration> - 비디오가 로드될 때마다 길이를 알 수 있는 함수.
 const handleLoadedMetadata = () => {
@@ -89,11 +94,11 @@ const handleFullScreen = () => {
   if (fullscreen) {
     // fullscreen 모드를 종료하고 싶을 때,
     document.exitFullscreen(); // exitFullscreen은 document에서 불려져야 한다는 것!
-    fullScreenBtn.innerText = "Enter Full Screen";
+    fullScreenIcon.classList = "fas fa-expand";
   } else {
     // fullscreen 모드로 하고 싶을 때,
     videoContainer.requestFullscreen(); // requestFullscreen은 element에서 불러져야 한다는 것!
-    fullScreenBtn.innerText = "Exit Full Screen";
+    fullScreenIcon.classList = "fas fa-compress";
   }
 };
 
@@ -140,8 +145,8 @@ video.addEventListener("timeupdate", handleTimeUpdate);
 // input을 이용해서 실시간으로 타임라인을 세팅하고 움직일 수 있는 것!
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
+videoContainer.addEventListener("mousemove", handleMouseMove);
+videoContainer.addEventListener("mouseleave", handleMouseLeave);
 
 // video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
 if (video.readyState == 4) {
