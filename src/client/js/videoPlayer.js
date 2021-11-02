@@ -1,8 +1,9 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
-const time = document.getElementById("time");
 const volumeRange = document.getElementById("volume");
+const currentTime = document.getElementById("currentTime");
+const totalTime = document.getElementById("totalTime");
 
 // globalVolumeValue이 바뀔 때마다 매번 업데이트 해 줄 것!
 // 이 때의 globalVolumeValue변수는 string!
@@ -47,7 +48,25 @@ const handleVolumeChange = (event) => {
   video.volume = value;
 };
 
+// <Duration> - 비디오가 로드될 때마다 행하는 함수.
+const handleLoadedMetadata = () => {
+  totalTime.innerText = Math.floor(video.duration);
+};
+// <CurrentTime> - 현재시간이 변할 때마다 업데이트하는 함수.
+const handleTimeUpdate = () => {
+  currentTime.innerText = Math.floor(video.currentTime);
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 // input을 이용해서 실시간으로 비디오 볼륨을 세팅할 수 있다는 것!
 volumeRange.addEventListener("input", handleVolumeChange);
+// 비디오의 재생시간이 로드되었을 때!
+video.addEventListener("loadedmetadata", handleLoadedMetadata);
+// 비디오의 현재시간이 변할 때마다 발생됨!
+video.addEventListener("timeupdate", handleTimeUpdate);
+
+// video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
+if (video.readyState == 4) {
+  handleLoadedMetadata();
+}
