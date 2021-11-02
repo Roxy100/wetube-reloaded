@@ -3,14 +3,18 @@ extends base.pug
 block content 
     //- /uploads/videos/파일이름 으로 나올 것이다.
     video(src="/" + video.fileUrl, controls)
-    div 
-        p=video.description
-        small=video.createdAt
-    div
-        small Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
-    //- video.owner의 'id'는 'ObjectId'인데, loggedInuser._id는 'string'형태의 데이터라서, 둘다 String()로 만들어준다.
-    if String(video.owner._id) === String(loggedInUser._id)
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
+    //- div 
+    //-     p=video.description
+    //-     small=video.createdAt
+    //- div
+    //-     small Uploaded by 
+    //-         a(href=`/users/${video.owner._id}`)=video.owner.name
+    //-     //- video.owner의 'id'는 'ObjectId'인데, loggedInuser._id는 'string'형태의 데이터라서, 둘다 String()로 만들어준다.
+    //-     if String(video.owner._id) === String(loggedInUser._id)
+    //-         a(href=`${video.id}/edit`) Edit Video &rarr;
+    //-         br
+    //-         a(href=`${video.id}/delete`) Delete Video &rarr;
+
+
+block scripts
+    script(src="/static/js/videoPlayer.js")
