@@ -513,3 +513,7 @@ new Date(5*1000).toISOString()
 new Date(5*1000).toISOString().substr(11,8)
 '00:00:05'
 ```
+
+#### Etc 이벤트 함수
+
+- input event 는 클릭하고 이동했을 때 일어나는 이벤트 함수이다.

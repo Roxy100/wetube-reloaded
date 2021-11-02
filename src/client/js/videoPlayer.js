@@ -4,6 +4,7 @@ const muteBtn = document.getElementById("mute");
 const volumeRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+const timeline = document.getElementById("timeline");
 
 // globalVolumeValue이 바뀔 때마다 매번 업데이트 해 줄 것!
 // 이 때의 globalVolumeValue변수는 string!
@@ -48,16 +49,29 @@ const handleVolumeChange = (event) => {
   video.volume = value;
 };
 
+// <Time Formatting>
 const formatTime = (seconds) =>
   new Date(seconds * 1000).toISOString().substr(11, 8);
 
-// <Duration> - 비디오가 로드될 때마다 행하는 함수.
+// <Duration> - 비디오가 로드될 때마다 길이를 알 수 있는 함수.
 const handleLoadedMetadata = () => {
-  totalTime.innerText = formatTime(Math.floor(video.duration));
+  totalTime.innerText = formatTime(Math.floor(video.duration)); // 텍스트 변화
+  timeline.max = Math.floor(video.duration); // range의 max value 변화
 };
 // <CurrentTime> - 현재시간이 변할 때마다 업데이트하는 함수.
 const handleTimeUpdate = () => {
-  currentTime.innerText = formatTime(Math.floor(video.currentTime));
+  currentTime.innerText = formatTime(Math.floor(video.currentTime)); // 텍스트 변화
+  timeline.value = Math.floor(video.currentTime); // range의 value 변화
+};
+
+// <Timeline>
+const handleTimelineChange = (event) => {
+  // input이벤트가 일어날 때 지정한 값을 불러올 수 있게.
+  const {
+    target: { value },
+  } = event;
+  // video가 진행하는 시간이 value값과 일치하게끔.
+  video.currentTime = value;
 };
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -68,6 +82,8 @@ volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 // 비디오의 현재시간이 변할 때마다 발생됨!
 video.addEventListener("timeupdate", handleTimeUpdate);
+// input을 이용해서 실시간으로 타임라인을 세팅하고 움직일 수 있는 것!
+timeline.addEventListener("input", handleTimelineChange);
 
 // video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
 if (video.readyState == 4) {
