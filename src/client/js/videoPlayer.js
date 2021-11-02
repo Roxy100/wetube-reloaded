@@ -5,6 +5,8 @@ const volumeRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
+const fullScreenBtn = document.getElementById("fullScreen");
+const videoContainer = document.getElementById("videoContainer");
 
 // globalVolumeValue이 바뀔 때마다 매번 업데이트 해 줄 것!
 // 이 때의 globalVolumeValue변수는 string!
@@ -74,6 +76,21 @@ const handleTimelineChange = (event) => {
   video.currentTime = value;
 };
 
+// <Full Screen Btn>
+const handleFullScreen = () => {
+  // fullscreenElement가 null을 반환한다면 풀스크린인 element가 없다는 뜻. (풀스크린 모드가 아니라는 것!)
+  const fullscreen = document.fullscreenElement;
+  if (fullscreen) {
+    // fullscreen 모드를 종료하고 싶을 때,
+    document.exitFullscreen(); // exitFullscreen은 document에서 불려져야 한다는 것!
+    fullScreenBtn.innerText = "Enter Full Screen";
+  } else {
+    // fullscreen 모드로 하고 싶을 때,
+    videoContainer.requestFullscreen(); // requestFullscreen은 element에서 불러져야 한다는 것!
+    fullScreenBtn.innerText = "Exit Full Screen";
+  }
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 // input을 이용해서 실시간으로 비디오 볼륨을 세팅할 수 있다는 것!
@@ -84,6 +101,7 @@ video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 // input을 이용해서 실시간으로 타임라인을 세팅하고 움직일 수 있는 것!
 timeline.addEventListener("input", handleTimelineChange);
+fullScreenBtn.addEventListener("click", handleFullScreen);
 
 // video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
 if (video.readyState == 4) {
