@@ -29,7 +29,7 @@ const handleMute = (e) => {
     video.muted = true; // 음소거 상태중~
   }
   muteBtn.innerText = video.muted ? "Unmute" : "Mute";
-  volumeRange.value = video.muted ? 0 : volumeValue;
+  volumeRange.value = video.muted ? 0 : globalVolumeValue;
 };
 
 // <Volume>
@@ -37,7 +37,7 @@ const handleVolumeChange = (event) => {
   // input이벤트가 일어날 때 지정한 값을 불러올 수 있게.
   // event.target.value의 value 속성은 string!
   const {
-    target: { value },
+    target: { value: globalVolumeValue },
   } = event;
   // 음소거를 해제한다면, 그 전의 볼륨 상태로 돌아가게끔 해주고 싶을 때,
   //  globalVolumeValue이라는 global variable을 업데이트 해줄 것.
