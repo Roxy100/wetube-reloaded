@@ -494,3 +494,22 @@ style-loader를 이용하는 대신에, 이 Plugin을 사용하여, css 파일�
 
 - font-awesome 설정 : https://cdnjs.com/libraries/font-awesome
 - Reset 설정 : https://meyerweb.com/eric/tools/css/reset/
+
+---
+
+---
+
+### Video Player making~~~
+
+#### Time Formatting
+
+타임 포맷할 때 쓰는 JS 속임수로 쓰이는 함수.
+
+```
+new Date(5*1000)
+Thu Jan 01 1970 09:00:05 GMT+0900 (한국 표준시)
+new Date(5*1000).toISOString()
+'1970-01-01T00:00:05.000Z'
+new Date(5*1000).toISOString().substr(11,8)
+'00:00:05'
+```
