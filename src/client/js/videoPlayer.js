@@ -134,6 +134,20 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
+// <keyPress>
+const handleKeyPress = (event) => {
+  const { key } = event;
+  if (key === " ") {
+    event.preventDefault();
+    handlePlayClick();
+  }
+};
+
+// <VideoContainer에서 스페이스바를 했을 때, 재생과 일시정지가 되도록 구현>
+const handleVideContainerClick = () => {
+  window.addEventListener("keypress", handleKeyPress);
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 // input을 이용해서 실시간으로 비디오 볼륨을 세팅할 수 있다는 것!
@@ -147,6 +161,8 @@ timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
+window.addEventListener("keypress", handleKeyPress);
+videoContainer.addEventListener("click", handleVideContainerClick);
 
 // video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
 if (video.readyState == 4) {
