@@ -7,6 +7,12 @@ const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
 const videoContainer = document.getElementById("videoContainer");
+const videoControls = document.getElementById("videoControls");
+
+// 1.(2) global controlsTimeout이 null -> numbers로 바꿔줌.
+let controlsTimeout = null;
+// 2.(2) global controlsMovementTimeout이 null -> number로 바꿔줌. (timeout의 id)
+let controlsMovementTimeout = null;
 
 // globalVolumeValue이 바뀔 때마다 매번 업데이트 해 줄 것!
 // 이 때의 globalVolumeValue변수는 string!
@@ -91,6 +97,38 @@ const handleFullScreen = () => {
   }
 };
 
+// <Controls Events>
+// 컨트롤을 숨겨주는 것!
+const hideControls = () => videoControls.classList.remove("showing");
+
+// MouseMove
+const handleMouseMove = () => {
+  // 1. User(마우스)가 video에 들어왔다 떠나서 다시 들어올 때 발생하는 것!
+  if (controlsTimeout) {
+    // 1.(3) 떠나다가 video안에 오게 되면, controlsTimeout이 number가 돼서 Timeout을 취소할 수 있게 되는 것!
+    clearTimeout(controlsTimeout);
+    controlsTimeout = null;
+  }
+  // 2. User(마우스)가 video안에 있을 때,
+  if (controlsMovementTimeout) {
+    // 2.(1) 마우스를 움직일 때, mousestop할 수 있는 clearTimeout도 같이 시작하게 됨.
+    clearTimeout(controlsMovementTimeout);
+    // 2.(3) 오래된 timeout은 취소되고,
+    controlsMovementTimeout = null;
+  }
+  // 컨트롤을 보여주는 것!
+  videoControls.classList.add("showing");
+  // 2.(1) video안에서 마우스가 움직이기 시작하면 Timeout을 시작한 후부터 3초 뒤에 컨트롤을 숨긴다.
+  // 2.(4) 마우스를 움직이지 않아도 컨트롤 부분이 숨겨지는 경우, 새로운 Timeout을 생성하게 된다!
+  controlsMovementTimeout = setTimeout(hideControls, 3000);
+};
+
+// Mouseleave
+// 1.(1) User(마우스커서)가 video로부터 떠나면, hideControls가 3초 뒤에 실행이 된다! setTimeout이 되서,
+const handleMouseLeave = () => {
+  controlsTimeout = setTimeout(hideControls, 3000);
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 // input을 이용해서 실시간으로 비디오 볼륨을 세팅할 수 있다는 것!
@@ -102,6 +140,8 @@ video.addEventListener("timeupdate", handleTimeUpdate);
 // input을 이용해서 실시간으로 타임라인을 세팅하고 움직일 수 있는 것!
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
+video.addEventListener("mousemove", handleMouseMove);
+video.addEventListener("mouseleave", handleMouseLeave);
 
 // video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
 if (video.readyState == 4) {
