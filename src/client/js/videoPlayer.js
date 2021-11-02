@@ -2,7 +2,12 @@ const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
 const time = document.getElementById("time");
-const volume = document.getElementById("volume");
+const volumeRange = document.getElementById("volume");
+
+// globalVolumeValue이 바뀔 때마다 매번 업데이트 해 줄 것!
+// 이 때의 globalVolumeValue변수는 string!
+let globalVolumeValue = 0.5;
+video.volume = globalVolumeValue;
 
 // <Play, Pause>
 const handlePlayClick = (e) => {
@@ -15,7 +20,34 @@ const handlePlayClick = (e) => {
 };
 
 // <Mute, Unnute>
-const handleMute = (e) => {};
+const handleMute = (e) => {
+  if (video.muted) {
+    video.muted = false; // 음소거 해제
+  } else {
+    video.muted = true; // 음소거 상태중~
+  }
+  muteBtn.innerText = video.muted ? "Unmute" : "Mute";
+  volumeRange.value = video.muted ? 0 : volumeValue;
+};
+
+// <Volume>
+const handleVolumeChange = (event) => {
+  // input이벤트가 일어날 때 지정한 값을 불러올 수 있게.
+  // event.target.value의 value 속성은 string!
+  const {
+    target: { value },
+  } = event;
+  // 음소거를 해제한다면, 그 전의 볼륨 상태로 돌아가게끔 해주고 싶을 때,
+  //  globalVolumeValue이라는 global variable을 업데이트 해줄 것.
+  globalVolumeValue === "0"
+    ? ((video.muted = true), (muteBtn.innerText = "Unmute"))
+    : ((video.muted = false), (muteBtn.innerText = "Mute"));
+  // 비디오의 볼륨을 바뀌게 하는 것.
+  // video.volume 속성은 number!
+  video.volume = value;
+};
 
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
+// input을 이용해서 실시간으로 비디오 볼륨을 세팅할 수 있다는 것!
+volumeRange.addEventListener("input", handleVolumeChange);
