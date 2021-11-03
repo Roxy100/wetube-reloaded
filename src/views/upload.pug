@@ -2,6 +2,8 @@ extends base.pug
 
 block content
     div 
+        //- src가 없는 video를 만들어,
+        video#preview
         button#startBtn Start Recording
     if errorMessage 
         span=errorMessage
