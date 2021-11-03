@@ -517,3 +517,23 @@ new Date(5*1000).toISOString().substr(11,8)
 #### Etc 이벤트 함수
 
 - input event 는 클릭하고 이동했을 때 일어나는 이벤트 함수이다.
+
+---
+
+### Views API
+
+#### Status() / Sendstatus()
+
+- Status() : render()하기 전에 상태 코드를 정할 수 있는 것.
+
+  ```
+  return res.status(400).render();
+  ```
+
+- Sendstatus() : 상태 코드를 보내고 연결을 끝내는 것!
+
+  ```
+  return res.sendStatus(404);
+  ```
+
+---

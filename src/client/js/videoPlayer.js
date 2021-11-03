@@ -148,6 +148,14 @@ const handleVideContainerClick = () => {
   window.addEventListener("keypress", handleKeyPress);
 };
 
+// <Register View 조회수 기록하기>
+const handleEnded = () => {
+  const { id } = videoContainer.dataset; // dataset으로 데이터 접근할 수 있다.
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  }); // api URl에 Post 요청을 할 수 있다! (apiRouter.js에서 Post요청을 받을 수 있도록)
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 // input을 이용해서 실시간으로 비디오 볼륨을 세팅할 수 있다는 것!
@@ -156,6 +164,8 @@ volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 // 비디오의 현재시간이 변할 때마다 발생됨!
 video.addEventListener("timeupdate", handleTimeUpdate);
+// 비디오가 끝까지 재생 완료 된 시점에 발생됨!
+video.addEventListener("ended", handleEnded);
 // input을 이용해서 실시간으로 타임라인을 세팅하고 움직일 수 있는 것!
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
