@@ -19,29 +19,62 @@ const handleDownload = async () => {
     log: true,
   });
   await ffmpeg.load();
+
   // Step 2. ffmpeg(가상컴퓨터)에 파일을 만들기
   ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
+
   // Step 3. (1) ffmpeg(가상컴퓨터)에 이미 존재하는 파일을 input으로 받기
   // Step 3. (2) 초당 60프레임으로 인코딩해서 output.mp4로 변환해주기
   await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
-  // Step 4. mp4파일 읽어오기
+  // Step 3. (3) 썸네일 만들기
+  await ffmpeg.run(
+    "i",
+    "recording.webm", // recording.webm을 input을 받은 걸,
+    "-ss",
+    "00:00:01", // 00:00:01 시간대를 찾고,
+    "-frames:v",
+    "1", // 1장의 스크린샷을 찍어서
+    "thumbnail.jpg" // 그 파일을 thumbnail.jpg로 저장하는 것!
+  );
+
+  // Step 4. mp4파일, 썸네일파일 읽어오기
   const mp4File = ffmpeg.FS("readFile", "output.mp4");
-  // Step 5. mp4File로부터 이상하게 생긴 data(Blob)를 받아서,
+  const thumbFile = ffmpeg.FS("readFile", "thumbnail.jpg");
+
+  // Step 5. 자바스크립트에서 파일같은 객체를 만들려면,
+  // 이상하게 생긴 data(Blob)를 받아서, blob에 binary data로 각각 mp4파일과 썸네일파일을 줘야 함.
   const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
-  // Step 6. objectURL(url을 사용해서 파일을 가리키도록 브라우저가 만든 마법의 URL)을 만듬.
+  const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
+
+  // Step 6. blob(파일)을 가지고 mp4, 썸네일의 objectURl을 만듬.
   const mp4Url = URL.createObjectURL(mp4Blob);
-  // 5.(3) a 링크 형성.
-  const a = document.createElement("a");
-  // 링크는 비디오 파일로 갈 수 있는 URL과 연결.
-  a.href = mp4Url;
+  const thumbUrl = URL.createObjectURL(thumbBlob);
+
+  // Step 7. mp4를 다운 받기 위한 Url형성.
+  const a = document.createElement("a"); // a 링크 형성.
+  a.href = mp4Url; // 링크의 href는 영상을 담고 있는 마법의 url
   //a태그에 download라는 속성을 추가해주면,
   //해당 파일을 "MyRecording"이라는 파일로 저장할 수 있게 해줌.
   //URl의 콘텐츠를 다운로드 할 수 있게 해줌.
   a.download = "MyRecording.mp4"; //.mp4이라는 파일의 포맷을 지정.
-  // 그 링크를 document.body에 추가.
-  document.body.appendChild(a);
-  // 사용자 대신 해당 링크를 클릭해주었음.
-  a.click();
+  document.body.appendChild(a); // 그 링크를 document.body에 추가.
+  a.click(); // 사용자 대신 해당 링크를 클릭해주었음.
+
+  // Step 7. jpg를 다운 받기 위한 Url형성.
+  const thumbA = document.createElement("a");
+  thumbA.href = thumbUrl; // 링크의 href는 썸네일을 담고 있는 마법의 url
+  thumbA.download = "MyThumbnail.jpg";
+  document.body.appendChild(thumbA);
+  thumbA.click();
+
+  // Step 8. 이 파일들을 메모리에서 삭제하기 위해 unlink했음.
+  ffmpeg.FS("unlink", "recording.webm");
+  ffmpeg.FS("unlink", "output.mp4");
+  ffmpeg.FS("unlink", "thumbnail.jpg");
+
+  URL.revokeObjectURL(mp4Url);
+  URL.revokeObjectURL(thumbUrl);
+  URL.revokeObjectURL(videoFile);
 };
 
 // <녹화 멈추기>
