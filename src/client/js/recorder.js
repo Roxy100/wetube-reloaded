@@ -24,14 +24,20 @@ const handleDownload = async () => {
   // Step 3. (1) ffmpeg(가상컴퓨터)에 이미 존재하는 파일을 input으로 받기
   // Step 3. (2) 초당 60프레임으로 인코딩해서 output.mp4로 변환해주기
   await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
+  // Step 4. mp4파일 읽어오기
+  const mp4File = ffmpeg.FS("readFile", "output.mp4");
+  // Step 5. mp4File로부터 이상하게 생긴 data(Blob)를 받아서,
+  const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
+  // Step 6. objectURL(url을 사용해서 파일을 가리키도록 브라우저가 만든 마법의 URL)을 만듬.
+  const mp4Url = URL.createObjectURL(mp4Blob);
   // 5.(3) a 링크 형성.
   const a = document.createElement("a");
   // 링크는 비디오 파일로 갈 수 있는 URL과 연결.
-  a.href = videoFile;
+  a.href = mp4Url;
   //a태그에 download라는 속성을 추가해주면,
   //해당 파일을 "MyRecording"이라는 파일로 저장할 수 있게 해줌.
   //URl의 콘텐츠를 다운로드 할 수 있게 해줌.
-  a.download = "MyRecording.webm"; //.webm이라는 파일의 포맷을 지정.
+  a.download = "MyRecording.mp4"; //.mp4이라는 파일의 포맷을 지정.
   // 그 링크를 document.body에 추가.
   document.body.appendChild(a);
   // 사용자 대신 해당 링크를 클릭해주었음.

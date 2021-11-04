@@ -540,6 +540,18 @@ new Date(5*1000).toISOString().substr(11,8)
 
 ---
 
-### Webassembly Video Transcode
+### Video Recorder 비디오 녹화
+
+> objectURL(url을 사용해서 파일을 가리키도록 브라우저가 만든 마법의 URL)
+
+- createObjectUrl : 브라우저가 파일을 보여주는 방법일 뿐. (그 파일을 미리보고 싶을 때)
+- createObjectUrl()을 매번 호출할 때마다 새로운 객체 URL을 생성함.
+- 브라우저의 메모리 상에 파일을 저장해두고 브라우저가 그 파일에 접근할 수 있는 URL을 준 것.
+
+---
+
+### Webassembly Video Transcode 비디오 변환
 
 - FFmpeg.wasm : 비디오를 변환하기 위해 사용자의 컴퓨터를 사용함.
+
+---
