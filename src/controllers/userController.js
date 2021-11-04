@@ -161,9 +161,12 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 // <Log out>
+// flash() 미들웨어 사용시 logout을 눌렀을 때, req.flash() 세션 요구에 대한 에러 해결!
 export const logout = (req, res) => {
-  req.session.destroy();
   req.flash("info", "Bye Bye~");
+  req.session.user = null;
+  res.locals.loggedInUser = req.session.user;
+  req.session.loggedIn = false;
   return res.redirect("/");
 };
 
