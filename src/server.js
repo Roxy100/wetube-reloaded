@@ -50,6 +50,14 @@ app.use("/uploads", express.static("uploads"));
 // express에게 /assets 폴더를 User들한테 열람할 수 있게 설정함.
 // 서버한테 assets 폴더의 내용물을 /static 주소를 통해 공개하라고 하는 것.
 app.use("/static", express.static("assets"));
+// createFFmpegCore is not defined at HTMLScriptElement.eventHandler (getCreateFFmpegCore.js:101)) 에러 해결!
+app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
+// SharedArrayBuffer is not defined 에러 해결!
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

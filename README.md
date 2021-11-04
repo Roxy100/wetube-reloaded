@@ -537,3 +537,9 @@ new Date(5*1000).toISOString().substr(11,8)
   ```
 
 ---
+
+---
+
+### Webassembly Video Transcode
+
+- FFmpeg.wasm : 비디오를 변환하기 위해 사용자의 컴퓨터를 사용함.

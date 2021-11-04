@@ -1,3 +1,6 @@
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
+import { async } from "regenerator-runtime";
+
 const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("preview");
 
@@ -8,7 +11,19 @@ let videoFile;
 
 // <녹화파일 다운로드하기>
 // 5. 그 뒤, handleDownload 실행한다.
-const handleDownload = () => {
+const handleDownload = async () => {
+  // Step 1. ffmpeg(가상컴퓨터) 소프트웨어 사용
+  // createFFmpegCore is not defined at HTMLScriptElement.eventHandler (getCreateFFmpegCore.js:101)) 에러 해결!
+  const ffmpeg = createFFmpeg({
+    corePath: "/convert/ffmpeg-core.js",
+    log: true,
+  });
+  await ffmpeg.load();
+  // Step 2. ffmpeg(가상컴퓨터)에 파일을 만들기
+  ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
+  // Step 3. (1) ffmpeg(가상컴퓨터)에 이미 존재하는 파일을 input으로 받기
+  // Step 3. (2) 초당 60프레임으로 인코딩해서 output.mp4로 변환해주기
+  await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
   // 5.(3) a 링크 형성.
   const a = document.createElement("a");
   // 링크는 비디오 파일로 갈 수 있는 URL과 연결.
