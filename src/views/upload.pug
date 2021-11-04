@@ -1,10 +1,11 @@
 extends base.pug
 
 block content
-    div 
-        //- src가 없는 video를 만들어,
-        video#preview
-        button#startBtn Start Recording
+    div.upload__container 
+        div.upload__video 
+            //- src가 없는 video를 만들어,
+            video#preview
+            button#actionBtn.social__btn Start Recording
     if errorMessage 
         span=errorMessage
     //- /videos/upload url에 post request를 보낼 것.
@@ -12,6 +13,8 @@ block content
     form(method="POST", enctype="multipart/form-data") 
         label(for="video") Video File 
         input(type="file", accept="video/*", id="video", name="video" required)
+        label(for="thumb") Thumbnail File
+        input(type="file", accept="image/*", required, id="thumb", name="thumb")
         input(placeholder="Title", required, type="text", name="title", maxlength=40)
         input(placeholder="Description", required, type="text", name="description", minlength=20)
         input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags")
