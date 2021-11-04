@@ -563,3 +563,5 @@ new Date(5*1000).toISOString().substr(11,8)
 1. 서버에 express-flash라는 middleware 설치.
 2. 메시지를 남길 수 있도록 사용자를 보통 redirect하는 곳(템플릿을 rendering하는 곳이나 어디든)에 req.flash()를 사용함.
    > req.flash("메세지타입", "내용")
+
+- flash middleware은 messages라고 하는 locals를 사용할 수 있게 해준다!!!
