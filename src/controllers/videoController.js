@@ -35,6 +35,7 @@ export const getEdit = async (req, res) => {
   }
   // video.owner는 object형태이고, _id는 string형태라서, String()로 바꿔준다.
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "Not authorized");
     return res.status(403).redirect("/");
   }
   return res.render("edit", { pageTitle: `Edit: ${video.title}`, video });
@@ -54,6 +55,7 @@ export const postEdit = async (req, res) => {
   }
   // video.owner는 object형태이고, _id는 string형태라서, String()로 바꿔준다.
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "You are not the owner of the video.");
     return res.status(403).redirect("/");
   }
   await Video.findByIdAndUpdate(id, {
@@ -61,6 +63,7 @@ export const postEdit = async (req, res) => {
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
+  req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
 }; // req.body 는 form에 있는 value의 javascript representation임. (javascript식으로 표현한 것.) ex.edit.pug의 form식.
 // req.body를 나타내주려면 form의 name을 반드시 넣어주어야 한다!!!

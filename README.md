@@ -555,3 +555,11 @@ new Date(5*1000).toISOString().substr(11,8)
 - FFmpeg.wasm : 비디오를 변환하기 위해 사용자의 컴퓨터를 사용함.
 
 ---
+
+---
+
+### 사용자에게 메시지를 남길 수 있게 하는 Flash message
+
+1. 서버에 express-flash라는 middleware 설치.
+2. 메시지를 남길 수 있도록 사용자를 보통 redirect하는 곳(템플릿을 rendering하는 곳이나 어디든)에 req.flash()를 사용함.
+   > req.flash("메세지타입", "내용")

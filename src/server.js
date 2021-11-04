@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 // session이라는 middleware가 브라우저에 cookie를 전송함.
 import session from "express-session";
+// 사용자에게 메세지를 남길 수 있게 함. session에 근거하기 때문에 사용자만이 볼 수 있음.
+import flash from "express-flash";
 // MongoStore 는 세션을 몽고DB에 저장함.
 import MongoStore from "connect-mongo";
 // 따로 독립되어있는 export한 라우터들을 모아 import한 것들.
@@ -58,6 +60,8 @@ app.use((req, res, next) => {
   res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
 });
+// flash()가 session에 연결해서 사용자에게 메시지를 남길 게 할 것.
+app.use(flash());
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
