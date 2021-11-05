@@ -1,4 +1,5 @@
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 import User from "../models/User";
 
 // <Home>
@@ -160,9 +161,20 @@ export const registerView = async (req, res) => {
 };
 
 // <Comment 작성하면, 보내기>
-export const createComment = (req, res) => {
-  console.log(req.params); // video의 id를 받아올 수 있는지 확인.
-  console.log(req.body); // fetch로부터 정보가 넘어오는지 확인.
-  console.log(req.body.text, req.body.rating); // (3) text와 raring을 받아오는지 확인
-  res.end();
+export const createComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+  return res.sendStatus(201);
 };
