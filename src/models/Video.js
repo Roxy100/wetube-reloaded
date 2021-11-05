@@ -11,6 +11,10 @@ const videoSchema = new mongoose.Schema({
   meta: {
     views: { type: Number, default: 0, required: true },
   },
+  // 비디오엔 많은 댓글을 가질 수 있다는 것!
+  comments: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
+  ],
   // Mongoose에게 type을 만들어, 'owner'가 어떤 model의 objectId라고 알려줄 것이다.
   // owner 겸 'objectId'가 'model user'에서 온다고 알려주는 것. (User.js에서 schema한 코드에서 볼 수 있다.)
   // 즉, Video Model에 objectId type을 가진 owner를 추가하고, 보내는 id는 User model에서 가져온 것이다. (owner랑 id랑 연결하려고)

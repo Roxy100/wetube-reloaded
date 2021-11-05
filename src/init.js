@@ -6,6 +6,7 @@ import "./db";
 // db.js를 mongoose와 연결시켜서 video model를 인식시키는 것.
 import "./models/Video";
 import "./models/User";
+import "./models/Comment";
 import app from "./server";
 
 const PORT = 4500;
