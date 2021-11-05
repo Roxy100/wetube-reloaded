@@ -15,8 +15,10 @@ export const watch = async (req, res) => {
   // const id = req.params.id;
   const { id } = req.params;
   // populate("owner")하기 않으면, 그냥 owner의 string값만 볼 수 있지만,
-  // populate("owner")하면, owner의 모든 정보들(object)을 다 볼 수 있게 된다.
-  const video = await Video.findById(id).populate("owner");
+  // populate("owner")하면, owner의 모든 정보들(object)을 다 볼 수 있게 된다. 특히, 사용자의 이름을 받고 싶어서.
+  // populate("comments")하면, 모든 댓글들(comments)의 모든 정보들을 다 볼 수 있게 된다. 특히, 비디오의 댓글을 받고 싶어서.
+  const video = await Video.findById(id).populate("owner").populate("comments");
+  console.log(video);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
@@ -176,5 +178,8 @@ export const createComment = async (req, res) => {
     owner: user._id,
     video: id,
   });
+  // Update the Id of the newly created comment to the video
+  video.comments.push(comment._id);
+  video.save();
   return res.sendStatus(201);
 };
