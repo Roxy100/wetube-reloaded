@@ -158,3 +158,11 @@ export const registerView = async (req, res) => {
   await video.save();
   return res.sendStatus(200);
 };
+
+// <Comment 작성하면, 보내기>
+export const createComment = (req, res) => {
+  console.log(req.params); // video의 id를 받아올 수 있는지 확인.
+  console.log(req.body); // fetch로부터 정보가 넘어오는지 확인.
+  console.log(req.body.text, req.body.rating); // (3) text와 raring을 받아오는지 확인
+  res.end();
+};

@@ -27,8 +27,9 @@ app.set("views", process.cwd() + "/src/views");
 
 app.use(logger);
 // express application이 form의 value들을 이해할 수 있도록 하고, form을 멋진 javascript object 형식으로 바꿔주는 middleware.
-app.use(express.urlencoded({ extended: true }));
-// videoRouter > videoController > postEdit에 있는 req.body와 연결되는 지점.
+app.use(express.urlencoded({ extended: true })); // videoRouter > videoController > postEdit에 있는 req.body와 연결되는 지점.
+// (2) express application이 보내진 string을 멋진 javascript object 형식으로 바꿔주는 middleware.
+app.use(express.json()); // text를 json으로 다시 변환해서 backend에서 사용할 거라고 이해하는 것!
 
 // session middleware
 // express가 세션을 메모리에 저장하고 있다. 그러나, 서버 재시작되면, 세션을 잊어버리게 된다.
