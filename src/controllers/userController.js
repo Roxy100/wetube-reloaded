@@ -172,7 +172,7 @@ export const logout = (req, res) => {
 
 // <Edit Profile>
 export const getEdit = (req, res) => {
-  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+  return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
 export const postEdit = async (req, res) => {
   // const id = req.session.user._id;
@@ -189,7 +189,7 @@ export const postEdit = async (req, res) => {
     $or: [{ username }, { email }],
   });
   if (exists) {
-    return res.status(400).render("edit-profile", {
+    return res.status(400).render("users/edit-profile", {
       pageTitle: "Edit Profile",
       errorMessage: "This username/email is already taken.",
     });

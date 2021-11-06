@@ -22,7 +22,7 @@ export const watch = async (req, res) => {
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("videos/watch", { pageTitle: video.title, video });
 }; // watch.pug를 렌더링한다.
 
 // <Update Video>
@@ -41,7 +41,10 @@ export const getEdit = async (req, res) => {
     req.flash("error", "Not authorized");
     return res.status(403).redirect("/");
   }
-  return res.render("edit", { pageTitle: `Edit: ${video.title}`, video });
+  return res.render("videos/edit", {
+    pageTitle: `Edit: ${video.title}`,
+    video,
+  });
 }; // edit.pug를 렌더링한다.
 
 // 유저가 submit하면, 우리의 post request로 이동해서 postEdit가 처리해준다.
@@ -74,7 +77,7 @@ export const postEdit = async (req, res) => {
 
 // <Upload Video>
 export const getUpload = (req, res) => {
-  return res.render("upload", { pageTitle: "Upload Video" });
+  return res.render("videos/upload", { pageTitle: "Upload Video" });
 };
 
 // postUpload라는 function이 호출이 될 것임.
@@ -104,7 +107,7 @@ export const postUpload = async (req, res) => {
     user.save();
     return res.redirect("/");
   } catch (error) {
-    return res.status(400).render("upload", {
+    return res.status(400).render("videos/upload", {
       pageTitle: "Upload Video",
       errorMessage: error._message,
     });
