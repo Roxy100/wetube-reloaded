@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 import User from "../models/User";
+import { async } from "regenerator-runtime";
 
 // <Home>
 export const home = async (req, res) => {
@@ -18,7 +19,6 @@ export const watch = async (req, res) => {
   // populate("owner")하면, owner의 모든 정보들(object)을 다 볼 수 있게 된다. 특히, 사용자의 이름을 받고 싶어서.
   // populate("comments")하면, 모든 댓글들(comments)의 모든 정보들을 다 볼 수 있게 된다. 특히, 비디오의 댓글을 받고 싶어서.
   const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
@@ -181,5 +181,27 @@ export const createComment = async (req, res) => {
   // Update the Id of the newly created comment to the video
   video.comments.push(comment._id);
   video.save();
-  return res.sendStatus(201);
+  // (1) backend에서 상태 코드를 201로 보낼 뿐만 아니라. frontend에게 새로 생긴 댓글의 id를 보내기 위해서.
+  // 사용자가 새로 생성한 댓글을 바로 지울 수 있도록 하기 위함!!! (웹페이지를 새로고침 하지 않고!)
+  // 어떤 json object를 보내주고 있다. 그 이름은 newCommentId이고, 그 값은 새로 만들어진 댓글의 id이다.
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+// <Comment 버튼 X를 이용하여 삭제하기>
+export const deleteComment = async (req, res) => {
+  const {
+    session: { user },
+    params: { id: commentId },
+  } = req;
+  const comment = await Comment.findById(commentId)
+    .populate("video")
+    .populate("owner");
+  if (!comment) {
+    return res.sendStatus(404);
+  }
+  if (String(user._id) !== String(comment.owner.id)) {
+    return res.status(403).redirect("/");
+  }
+  await Comment.findByIdAndDelete(commentId);
+  return res.status("200").redirect(`/videos/${comment.video._id}`);
 };

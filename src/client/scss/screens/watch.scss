@@ -19,18 +19,55 @@
   }
 }
 
+// 댓글작성란
+.video__add-comments {
+  width: 100%;
+  .video__comment-form {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    border: none;
+    textarea {
+      width: 90%;
+      height: 55px;
+      background-color: palegoldenrod;
+      font-weight: 800;
+      border: 8px inset plum;
+      &::placeholder {
+        font-size: 20px;
+      }
+    }
+    button {
+      background-color: peachpuff;
+      width: 10%;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+}
+
+// 댓글창 코멘트리스트
 .video__comments {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 1000px;
   width: 100%;
   margin: 0 auto;
   margin-top: 20px;
   .video__comment {
     padding: 10px;
     border-radius: 9999px;
-    background-color: #b0a8b9;
+    border: 8px inset plum;
+    background-color: palegoldenrod;
     color: black;
+    font-weight: 800;
     margin-bottom: 10px;
   }
+}
+
+// 버튼 삭제
+.deleteComment,
+.deleteBtn {
+  cursor: pointer;
 }
