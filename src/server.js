@@ -45,6 +45,8 @@ app.use(
   })
 );
 
+// flash()가 session에 연결해서 사용자에게 메시지를 남길 게 할 것.
+app.use(flash());
 app.use(localsMiddleware);
 // 폴더 전체를 브라우저에게 노출시킨다는 static files serving을 활성화 해준다.
 // Express에게 만약 누군가 "/uploads"로 가려고 한다면, uploads폴더의 내용을 볼 수 있게 해줘야 하기 때문에.
@@ -61,8 +63,6 @@ app.use((req, res, next) => {
   res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
 });
-// flash()가 session에 연결해서 사용자에게 메시지를 남길 게 할 것.
-app.use(flash());
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

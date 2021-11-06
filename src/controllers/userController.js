@@ -243,8 +243,8 @@ export const postChangePassword = async (req, res) => {
   }
 
   user.password = newPassword;
-  req.flash("info", "Password updated.");
   await user.save(); // user.save()하면, pre save가 작동한다.
+  req.flash("info", "Password updated");
   return res.redirect("/users/logout");
 };
 
