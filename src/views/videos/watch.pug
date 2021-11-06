@@ -24,7 +24,7 @@ block content
     div.video__data
         p.video__title=video.title
         small.video__owner Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
+            a(href=`/users/${video.owner._id}`)=video.owner.username
         small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
         //- video.owner의 'id'는 'ObjectId'인데, loggedInuser._id는 'string'형태의 데이터라서, 둘다 String()로 만들어준다.
         if String(video.owner._id) === String(loggedInUser._id)
