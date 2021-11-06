@@ -134,6 +134,29 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
+// <비디오화면 클릭 하면, 재생,정지 구현>
+const handleMousePlay = (e) => {
+  handlePlayClick();
+};
+
+// 스페이스바 클릭 안하게끔.
+const handleSpaceKey = (e) => {
+  if (e.code !== "Space") return;
+  handlePlayClick();
+};
+// Enter키와 F키 클릭 안하게끔.
+const handleFullScreenKey = (e) => {
+  if (e.code !== "Enter" && e.code !== "KeyF") return;
+  handleFullScreen();
+};
+
+// ESC키 누르면, 전체화면 종료될 때,
+const handleEscKey = () => {
+  if (document.fullscreenElement !== null) return;
+  fullScreenIcon.classList.remove("fa-compress");
+  fullScreenIcon.classList.add("fa-expand");
+};
+
 // <Register View 조회수 기록하기>
 const handleEnded = () => {
   const { id } = videoContainer.dataset; // dataset으로 데이터 접근할 수 있다.
@@ -154,9 +177,18 @@ video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
 // input을 이용해서 실시간으로 타임라인을 세팅하고 움직일 수 있는 것!
 timeline.addEventListener("input", handleTimelineChange);
+// <전체화면 기능>
 fullScreenBtn.addEventListener("click", handleFullScreen);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
+// dblclick은 두번 눌렀다 땔 때,
+video.addEventListener("dblclick", handleFullScreen);
+video.addEventListener("click", handleMousePlay);
+// keydown은 사용자가 키를 처음 눌렀을 때,
+videoContainer.addEventListener("keydown", handleSpaceKey);
+videoContainer.addEventListener("keydown", handleFullScreenKey);
+// fullscreenchange는 전체 화면 모드로 또는 전체 화면 모드에서 전환되는.
+videoContainer.addEventListener("fullscreenchange", handleEscKey);
 
 // video.readyState가 4 : video가 충분히 불러와져서 사용이 가능하다는 뜻.
 if (video.readyState == 4) {
