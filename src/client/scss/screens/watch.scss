@@ -2,16 +2,20 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  color: black;
   .video__title {
     font-size: 26px;
+    font-weight: 1000;
     margin-bottom: 5px;
   }
   .video__createdAt {
     font-size: 12px;
+    font-weight: 600;
   }
   .video__owner {
     margin-bottom: 5px;
     font-size: 14px;
+    font-weight: 600;
     a {
       color: cornsilk;
       text-decoration: underline;
