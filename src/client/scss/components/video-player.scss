@@ -1,7 +1,7 @@
 #videoContainer {
   width: 100%;
   position: relative;
-  border: 10px inset papayawhip;
+  border: 10px inset #ede9d0;
   video {
     width: 100%;
   }
@@ -23,7 +23,7 @@
     grid-template-columns: 1fr 4fr 1fr auto;
     gap: 10px;
     justify-content: space-between;
-    background-color: plum;
+    background-color: #55433c;
     padding: 10px;
     left: 0;
     box-sizing: border-box;

@@ -1,5 +1,9 @@
 // video mixin
 .video-mixin {
+  transition: transform 0.5s;
+  &:hover {
+    transform: scale(1.06);
+  }
   .video-mixin__thumb {
     height: 140px;
     border-radius: 7px;
