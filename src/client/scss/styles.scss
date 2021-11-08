@@ -59,10 +59,14 @@ main {
   padding: 10px 20px;
   border-radius: 10000px;
   text-align: center;
+  background-color: plum;
+  color: black;
+  font-weight: 800;
   animation: goAway 0.5s ease-in-out forwards;
   animation-delay: 3s;
   &.error {
-    background-color: plum;
+    background-color: powderblue;
     color: black;
+    font-weight: 700;
   }
 }
