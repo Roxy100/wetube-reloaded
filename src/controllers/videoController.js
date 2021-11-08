@@ -145,7 +145,7 @@ export const search = async (req, res) => {
   if (keyword) {
     videos = await Video.find({
       title: {
-        $regex: new RegExp(`${keyword}$`, "i"), // i는 대문자와 소문자를 구분하지 않는다는 뜻.
+        $regex: new RegExp(keyword, "i"), // i는 대문자와 소문자를 구분하지 않는다는 뜻.
       },
     }).populate("owner");
   }
