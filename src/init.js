@@ -1,3 +1,4 @@
+import "regenerator-runtime";
 // dotenv는 파일을 읽고 env에 추가를 해줄 것.
 import "dotenv/config";
 // db를 import해서 연결시킨 후,
@@ -12,6 +13,6 @@ import app from "./server";
 const PORT = 4500;
 
 const handleListening = () =>
-  console.log("✅ Server listening on http://localhost:${PORT} 🚀");
+  console.log(`✅ Server listening on http://localhost:${PORT} 🚀`);
 
 app.listen(PORT, handleListening);
