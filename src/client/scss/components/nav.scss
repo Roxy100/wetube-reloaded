@@ -1,0 +1,57 @@
+main {
+  nav {
+    color: white;
+    position: fixed;
+    top: 130px;
+    left: 20px;
+    ul {
+      list-style: none;
+      .main-menu {
+        margin: 50px 0;
+        border-bottom: 5px solid #e36f47;
+        text-align: center;
+        position: relative;
+        &:first-child {
+          border: none;
+          font-size: 30px;
+        }
+        &:hover .sub-menu {
+          display: block;
+          position: absolute;
+          width: 200px;
+          background: white;
+          color: black;
+          left: 90px;
+          top: 0px;
+          li {
+            margin: 10px;
+            width: fit-content;
+            &:hover {
+              transition: 0.5s color ease;
+              text-decoration: none;
+              left: 0;
+              color: #e36f47;
+              position: relative;
+            }
+            &:after {
+              left: 0;
+              width: 0;
+              bottom: -0.25em;
+              height: 0.35rem;
+              content: "";
+              position: absolute;
+              background: powderblue;
+              transition: 0.5s all ease;
+            }
+            &:hover:after {
+              width: 100%;
+            }
+          }
+        }
+        .sub-menu {
+          display: none;
+        }
+      }
+    }
+  }
+}
