@@ -200,7 +200,7 @@ export const postEdit = async (req, res) => {
       // 절대!!! DB에는 파일을 저장하지 않는다! (단, DB에는 파일의 위치만 저장하게 된다.)
       // form으로 파일을 보내는 걸 확인하면, 그 파일을 새로운 avatarUrl로 저장해주는 것!
       // 파일을 보내지 않으면 User에 기존 avatarUrl이 그대로 새로운 avatarUrl로 되는 것!
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
       username,

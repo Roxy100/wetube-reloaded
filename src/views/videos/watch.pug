@@ -4,7 +4,7 @@ block content
     //- 'data-' 원하는 어떤 데이터정보든지 찾을 수 있고, 저장할 수 있다.
     div#videoContainer(data-id=video._id) 
         //- /uploads/videos/파일이름 으로 나올 것이다.
-        video(src="/" + video.fileUrl)
+        video(src=video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
