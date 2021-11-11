@@ -1,4 +1,18 @@
 import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
+
+const s3 = new aws.S3({
+  credentials: {
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
+  },
+});
+
+const multerUploader = multerS3({
+  s3: s3,
+  bucket: "lsgtube",
+});
 
 // locals는 뭐든 할 수 있는 object.
 // 내 템플릿이 locals object에 접근할 수 있다.
@@ -45,10 +59,14 @@ export const avatarUpload = multer({
   limits: {
     fileSize: 3000000,
   },
+  storage: multerUploader,
 });
 
 // User가 보낸 파일을 uploads/video 폴더에 저장하도록 설정된 middleware.
 export const videoUpload = multer({
   dest: "uploads/videos/",
-  limits: { fileSize: 80000000 },
+  limits: {
+    fileSize: 80000000,
+  },
+  storage: multerUploader,
 });
