@@ -12,7 +12,7 @@ const s3 = new aws.S3({
 const multerUploader = multerS3({
   s3: s3,
   bucket: "lsgtubee",
-  acl: "Public-read",
+  acl: "public-read",
 });
 
 // locals는 뭐든 할 수 있는 object.
