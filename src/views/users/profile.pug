@@ -5,7 +5,7 @@ block content
     //- profile의 videos가 특정 User의 id와 owner id가 같은 videos만 가져온다는 것.
     //- 'user'를 'variable'로 'users/profile'로 보내고 있기 때문에 db에서 찾은 user는 videos를 가지고 있으니깐 user.videos라고 수정한다.
     div.profile__data
-        img(src="/" + user.avatarUrl).avatar
+        img(src=user.avatarUrl, crossorigin).avatar
         h3=user.name
     div.video-grid
         each video in user.videos
