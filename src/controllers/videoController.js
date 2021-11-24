@@ -90,6 +90,7 @@ export const postUpload = async (req, res) => {
   const { video, thumb } = req.files;
   // req.body로부터 그 name(title, description, hashtags)로 데이터를 받을 수 있을 것임.
   const { title, description, hashtags } = req.body;
+  const isHeroku = process.env.NODE_ENV === "production";
   // 데이터를 검증할 수 있는 js object의 간단한 코드.(js object를 만들고 db에 save하는 저장 코드 대신)
   try {
     // newVideo의 id를 User의 'videos array'에 추가해 줄 것이기 때문에,
@@ -97,8 +98,8 @@ export const postUpload = async (req, res) => {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: video[0].location,
-      thumbUrl: thumb[0].location,
+      fileUrl: isHeroku ? video[0].location : video[0].path,
+      thumbUrl: isHeroku ? thumb[0].location : video[0].path,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });

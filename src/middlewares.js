@@ -9,9 +9,17 @@ const s3 = new aws.S3({
   },
 });
 
-const multerUploader = multerS3({
+const isHeroku = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
   s3: s3,
-  bucket: "lsgtubee",
+  bucket: "lsgtubee/images",
+  acl: "public-read",
+});
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "lsgtubee/videos",
   acl: "public-read",
 });
 
@@ -27,6 +35,7 @@ export const localsMiddleware = (req, res, next) => {
   // loggedInUser에 접근하려는데 로그인 되어 있지 않으면 생기는 에러라서.
   // loggedInUser가 undefined라는 콘솔 결과가 나옴.
   // 그래서 뒤에 or(||) 와 빈 object({})를 추가해준다.
+  res.locals.isHeroku = isHeroku;
   next();
 };
 
@@ -60,7 +69,7 @@ export const avatarUpload = multer({
   limits: {
     fileSize: 3000000,
   },
-  storage: multerUploader,
+  storage: isHeroku ? s3ImageUploader : undefined,
 });
 
 // User가 보낸 파일을 uploads/video 폴더에 저장하도록 설정된 middleware.
@@ -69,5 +78,5 @@ export const videoUpload = multer({
   limits: {
     fileSize: 80000000,
   },
-  storage: multerUploader,
+  storage: isHeroku ? s3VideoUploader : undefined,
 });
