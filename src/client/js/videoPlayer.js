@@ -50,16 +50,22 @@ const handleVolumeChange = (event) => {
   // input이벤트가 일어날 때 지정한 값을 불러올 수 있게.
   // event.target.value의 value 속성은 string!
   const {
-    target: { value: globalVolumeValue },
+    target: { value },
   } = event;
   // 음소거를 해제한다면, 그 전의 볼륨 상태로 돌아가게끔 해주고 싶을 때,
   //  globalVolumeValue이라는 global variable을 업데이트 해줄 것.
-  globalVolumeValue === "0"
-    ? ((video.muted = true), (muteBtnIcon.classList = "fas fa-volume-mute"))
-    : ((video.muted = false), (muteBtnIcon.classList = "fas fa-volume-up"));
+  if (video.muted) {
+    video.muted = false;
+    muteBtnIcon.classList = "fas fa-volume-up";
+  }
   // 비디오의 볼륨을 바뀌게 하는 것.
   // video.volume 속성은 number!
+  globalVolumeValue = Number(value);
   video.volume = value;
+  if (globalVolumeValue === 0) {
+    video.muted = true;
+    muteBtnIcon.classList = "fas fa-volume-mute";
+  }
 };
 
 // <Time Formatting>
